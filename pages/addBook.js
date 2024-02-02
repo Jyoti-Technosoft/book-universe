@@ -1,65 +1,119 @@
-import React, { useState } from 'react';
-
-import Title from '../components/text/Title';
-import { getSingleBook } from './books/[id]';
-import classes from './savedBooks.module.scss';
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useQueries } from "@tanstack/react-query";
+import { BeatLoader } from "react-spinners";
+import PointText from "../components/text/PointText";
+import Text from "../components/text/Text";
+import Title from "../components/text/Title";
+import { getSingleMeal } from "./books/[id]";
+import classes from "./savedBooks.module.scss";
+import ButtonWithLink from "../components/button/Button";
 
 function addBook() {
   const [bookName, setBookName] = useState("");
-  const [bookTags, setbookTags] = useState("");
+  const [bookCategory, setBookCategory] = useState("");
+  const [bookLink, setBookLink] = useState("");
+  const [description, setDescription] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [dateOfPublish, setDateOfPublish] = useState("");
 
-//   const queries = savedBooksId.map((id) => (
-//     {
-//       queryKey: ['singleBook', id],
-//       queryFn: getSingleBook,
-//     }
-//   ));
+  //   const queries = savedMealsId.map((id) => (
+  //     {
+  //       queryKey: ['singleMeal', id],
+  //       queryFn: getSingleMeal,
+  //     }
+  //   ));
 
-    const submitBookData = () => {
-        debugger
-        if (typeof window !== "undefined" && window.localStorage) {
-            let books = localStorage.getItem('books');
-            if (books) {
-                books = JSON.parse(books);
-                books.push({bookName, bookTags});
-            } else {
-                books = [
-                    {
-                        bookName: bookName, 
-                        bookTags: bookTags
-                    }
-                ];
-            }
-            localStorage.setItem("books", JSON.stringify(books));
-          }
+  const submitBookData = () => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      let books = window.localStorage.getItem("books");
+      let book = null;
+      if (books) {
+        books = JSON.parse(books);
+        book = {
+          id: books.length + 1,
+          bookName,
+          bookCategory,
+          bookLink,
+          description,
+          authorName,
+          dateOfPublish,
+        }
+        books.push(book);
+      } else {
+        book = {
+          id: 1,
+          bookName: bookName,
+          bookCategory: bookCategory,
+          bookLink: bookLink,
+          description: description,
+          authorName: authorName,
+          dateOfPublish: dateOfPublish,
+        }
+        books = [
+          book
+        ];
+      }
+      window.localStorage.setItem("books", JSON.stringify(books));
+      router.push(`/books/${book.id}`);
     }
+  };
 
-//   const result = useQueries({ queries });
+  //   const result = useQueries({ queries });
 
-//   useEffect(() => {
-//     if (localStorage.getItem('savedBooks')) {
-//       setSavedMealsId(JSON.parse(localStorage.getItem('savedBooks')));
-//     }
-//   }, []);
+  //   useEffect(() => {
+  //     if (localStorage.getItem('savedMeals')) {
+  //       setSavedMealsId(JSON.parse(localStorage.getItem('savedMeals')));
+  //     }
+  //   }, []);
 
   return (
     <div className={classes.pageWrapper}>
-      <Title variant="primary" className={classes.pageTitle}>Add Book</Title>
+      <Title variant="primary" className={classes.pageTitle}>
+        Add Book
+      </Title>
       <div className={classes.list_container}>
-        <form onSubmit={() => submitBookData()}>
-            <input
-                className={classes.input}
-                value={bookName}
-                onChange={(e) => setBookName(e.target.value)}
-            />
-            <input
-                className={classes.input}
-                value={bookTags}
-                onChange={(e) => setbookTags(e.target.value)}
-            />
-            <button type='submit'>Add</button>
+        <form action="/books">
+          <input
+            placeholder="Book Name"
+            className={classes.input}
+            value={bookName}
+            onChange={(e) => setBookName(e.target.value)}
+          />
+          <input
+            placeholder="Book Category"
+            className={classes.input}
+            value={bookCategory}
+            onChange={(e) => setBookCategory(e.target.value)}
+          />
+          <input
+            placeholder="Book Link"
+            className={classes.input}
+            value={bookLink}
+            onChange={(e) => setBookLink(e.target.value)}
+          />
+          <textarea
+            placeholder="Description"
+            className={classes.input}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            placeholder="Author Name"
+            className={classes.input}
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
+          />
+          <input
+            type="date"
+            placeholder="Date Of Publish"
+            className={classes.input}
+            value={dateOfPublish}
+            onChange={(e) => setDateOfPublish(e.target.value)}
+          />
+          <button className={classes.addButton} onClick={() => submitBookData()}>Add</button>
         </form>
-        {/* {savedMealsId.length <= 0 && <Text>You have no saved books</Text>}
+        {/* {savedMealsId.length <= 0 && <Text>You have no saved meals</Text>}
         {result && result.map(({ data, isLoading }, index) => {
           if (isLoading) {
             return (
@@ -68,9 +122,9 @@ function addBook() {
           }
 
           return (
-            <Link href={`/books/${data.idBook}`} key={data.idBook}>
-              <a className={classes.singleBook}>
-                <Title variant="secondary" className={classes.bookTitle}>{data.strBook}</Title>
+            <Link href={`/books/${data.idMeal}`} key={data.idMeal}>
+              <a className={classes.singleMeal}>
+                <Title variant="secondary" className={classes.mealTitle}>{data.strMeal}</Title>
                 <PointText>
                   Category:
                   {' '}
@@ -87,7 +141,6 @@ function addBook() {
         })} */}
       </div>
     </div>
-
   );
 }
 

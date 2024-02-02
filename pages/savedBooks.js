@@ -46,7 +46,7 @@ function SavedBooks() {
             }
 
             return (
-              <Link href={`/books/${data.idBook}`} key={data.idBook}>
+              <Link href={`/books/${data.id}`} key={data.id}>
                 <a className={classes.singleBook}>
                   <Title variant="secondary" className={classes.bookTitle}>
                     {data.strBook}

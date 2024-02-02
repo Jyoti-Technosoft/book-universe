@@ -14,29 +14,32 @@ import Text from "../../components/text/Text";
 import classes from "./books.module.scss";
 
 export const getSingleBook = async ({ queryKey }) => {
-  const { data } = await axios.get(`/lookup.php?i=${queryKey[1]}`);
-  return data?.books?.[0];
+  let books = localStorage.getItem("books");
+  if (books) {
+    books = JSON.parse(books);
+  }
+  return books[queryKey[1] - 1];
 };
 
 function SingleBooks() {
   const router = useRouter();
   const { id } = router.query;
   const { data, isLoading, isError } = useQuery(
-    ["singleBook", id],
+    ["id", id],
     getSingleBook
   );
   const [isSaved, setIsSaved] = React.useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("savedBooks")) {
-      const savedBooks = JSON.parse(localStorage.getItem("savedBooks"));
+      const savedBooks = JSON.parse(localStorage.getItem("books"));
       if (savedBooks.includes(id)) {
         setIsSaved(true);
       } else {
         setIsSaved(false);
       }
     } else {
-      localStorage.setItem("savedBooks", JSON.stringify([]));
+      localStorage.setItem("books", JSON.stringify([]));
     }
   }, [id]);
 
@@ -51,12 +54,12 @@ function SingleBooks() {
   const handleSaveButtonClick = async () => {
     const savedBooks = JSON.parse(localStorage.getItem("savedBooks"));
     if (!isSaved) {
-      savedBooks.push(data.idBook);
+      savedBooks.push(data.id);
       localStorage.setItem("savedBooks", JSON.stringify(savedBooks));
       toast.success("Book saved successfully");
       setIsSaved(true);
     } else {
-      savedBooks.splice(savedBooks.indexOf(data.idBook), 1);
+      savedBooks.splice(savedBooks.indexOf(data.id), 1);
       localStorage.setItem("savedBooks", JSON.stringify(savedBooks));
       setIsSaved(false);
       toast.error("Book Removed successfully");
@@ -75,22 +78,25 @@ function SingleBooks() {
           />
         </div>
         <div className={classes.info}>
-          <Title variant="primary">{data.strBook}</Title>
+          <Title variant="primary">{data.name}</Title>
           <PointText className={classes.infoText}>
-            Category: {data.strCategory}
+            Author: {data.authorName}
           </PointText>
           <PointText className={classes.infoText}>
-            Area: {data.strArea}
+            Date Of Publish: {data.dateOfPublish}
           </PointText>
           <PointText className={classes.infoText}>
-            tags: {data?.strTags?.split(",").join(", ")}
+            Category: {data.bookCategory}
+          </PointText>
+          <PointText className={classes.infoText}>
+            Description: {data.description}
           </PointText>
 
-          {isSaved && (
+          {/* {isSaved && (
             <Text className={classes.greenText}>
               You already saved the book.
             </Text>
-          )}
+          )} */}
           <Button
             variant="primary"
             className={classes.saveButton}

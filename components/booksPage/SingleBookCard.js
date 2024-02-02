@@ -7,7 +7,7 @@ import classes from "./SingleBookCard.module.scss";
 
 function SingleBookCard({ book }) {
   return (
-    <Link href={`/books/${book.idBook}`}>
+    <Link href={`/books/${book.id}`}>
       <a className={classes.item}>
         <Image
           src={book.image}

@@ -17,7 +17,7 @@ const override = {
   margin: "0 auto",
 };
 
-const getBooks = async ({ queryKey }) => {
+const getBooks = async () => {
   return books.data || [];
 };
 
@@ -101,7 +101,7 @@ function Books() {
         {!isLoading &&
           !isError &&
           books &&
-          books.map((book) => <SingleBookCard key={book.idBook} book={book} />)}
+          books.map((book) => <SingleBookCard key={book.id} book={book} />)}
 
         {books && books.length === 0 && <Text>No books found</Text>}
       </div>
