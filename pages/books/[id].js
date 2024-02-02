@@ -33,7 +33,7 @@ function SingleBooks() {
   useEffect(() => {
     if (localStorage.getItem("savedBooks")) {
       const savedIds = JSON.parse(localStorage.getItem("savedBooks"));
-      if (savedIds.indexOf(id) != -1){
+      if (savedIds.indexOf(parseInt(id)) >= 0){
         setIsSaved(true);
       } else {
         setIsSaved(false);
