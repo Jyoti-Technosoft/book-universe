@@ -10,13 +10,13 @@ function SingleBookCard({ book }) {
     <Link href={`/books/${book.idBook}`}>
       <a className={classes.item}>
         <Image
-          src={book.strBookThumb}
+          src={book.image}
           height="200"
           width="300"
-          alt={book.strBook}
+          alt={book.name}
         />
         <Title className={classes.title} variant="secondary">
-          {book.strBook}
+          {book.name}
         </Title>
       </a>
     </Link>

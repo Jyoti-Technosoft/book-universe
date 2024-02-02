@@ -9,6 +9,7 @@ import SingleBookCard from "../../components/booksPage/SingleBookCard";
 import PointText from "../../components/text/PointText";
 import Text from "../../components/text/Text";
 import categories from "../../assets/categories.json";
+import books from "../../assets/books.json";
 import classes from "./books.module.scss";
 
 const override = {
@@ -17,22 +18,15 @@ const override = {
 };
 
 const getBooks = async ({ queryKey }) => {
-  const { data } = await axios.get(`filter.php?c=${queryKey[1]}`);
-  return data?.books || [];
+  return books.data || [];
 };
 
-const getQueriedBooks = async ({ queryKey }) => {
-  const { data } = await axios.get(`search.php?s=${queryKey[1]}`);
-  return data?.books || [];
-};
 
 const getCategories = async () => {
-  // const { data } = await axios.get('/categories.php');
   return categories.data;
 };
 
 function Books() {
-  // console.log("categories", categories.data)
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchText, setSearchText] = useState("");
   const [query, setQuery] = useState("");
@@ -44,15 +38,8 @@ function Books() {
     error: categoryError,
   } = useQuery(["catagories"], getCategories);
 
-  const {
-    data: queriedData,
-    isLoading: queryIsLoading,
-    isError: queryError,
-  } = useQuery(["booksByQuery", query], getQueriedBooks, {
-    enabled: query !== "",
-  });
 
-  const { data, isLoading, isError } = useQuery(
+  const { data: books, isLoading, isError } = useQuery(
     ["booksByCategory", selectedCategory],
     getBooks,
     {
@@ -113,18 +100,10 @@ function Books() {
       <div className={classes.books__container}>
         {!isLoading &&
           !isError &&
-          data &&
-          data.map((book) => <SingleBookCard key={book.idBook} book={book} />)}
-        {!queryIsLoading &&
-          !queryError &&
-          queriedData &&
-          queriedData.map((book) => (
-            <SingleBookCard key={book.idBook} book={book} />
-          ))}
-        {data &&
-          queriedData &&
-          data.length === 0 &&
-          queriedData.length === 0 && <Text>No books found</Text>}
+          books &&
+          books.map((book) => <SingleBookCard key={book.idBook} book={book} />)}
+
+        {books && books.length === 0 && <Text>No books found</Text>}
       </div>
     </div>
   );
