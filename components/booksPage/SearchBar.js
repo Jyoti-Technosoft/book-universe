@@ -1,5 +1,6 @@
-import React from 'react';
-import classes from './SearchBar.module.scss';
+import React from "react";
+
+import classes from "./SearchBar.module.scss";
 
 function SearchBar({ searchText, setSearchText }) {
   return (

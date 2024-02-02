@@ -1,68 +1,84 @@
 {
-	"data": [
-		{
-			"id": 0,
-			"name": "Art and History",
-			"link": "",
-			"tags": "",
-			"category": "Art"
-		},
-		{
-			"id": 1,
-			"name": "Classic Fiction",
-			"link": "",
-			"tags": "",
-			"category": "Fiction"
-		},
-		{
-			"id": 2,
-			"name": "Comic Book or Graphic Novel",
-			"link": "",
-			"tags": "",
-			"category": "Comic"
-		},
-		{
-			"id": 3,
-			"name": "Cooking",
-			"link": "",
-			"tags": "",
-			"category": "Cooking"
-		},
-		{
-			"id": 4,
-			"name": "Detective and Mystery",
-			"link": "",
-			"tags": "",
-			"category": "Detective"
-		},
-		{ "id": 5, "name": "Horror", "link": "", "tags": "", "category": "Horror" },
-		{
-			"id": 6,
-			"name": "Literature Fiction",
-			"link": "",
-			"tags": "",
-			"category": "Art"
-		},
-		{
-			"id": 7,
-			"name": "Ramayan",
-			"link": "",
-			"tags": "",
-			"category": "Religion"
-		},
-		{
-			"id": 8,
-			"name": "Tours and Travels",
-			"link": "",
-			"tags": "",
-			"category": "Travel"
-		},
-		{
-			"id": 9,
-			"name": "Art and Drawing",
-			"link": "",
-			"tags": "",
-			"category": "Art"
-		}
-	]
+  "data": [
+    {
+      "id": 0,
+      "name": "Art and History",
+      "link": "",
+      "authorName": "",
+      "category": "Art",
+      "description": ""
+    },
+    {
+      "id": 1,
+      "name": "Classic Fiction",
+      "link": "",
+      "authorName": "",
+      "category": "Fiction",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "Comic Book or Graphic Novel",
+      "link": "",
+      "authorName": "",
+      "category": "Comic",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "name": "Cooking",
+      "link": "",
+      "authorName": "",
+      "category": "Cooking",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "name": "Detective and Mystery",
+      "link": "",
+      "authorName": "",
+      "category": "Detective",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "name": "Horror",
+      "link": "",
+      "authorName": "",
+      "category": "Horror",
+      "description": ""
+    },
+    {
+      "id": 6,
+      "name": "Literature Fiction",
+      "link": "",
+      "authorName": "",
+      "category": "Art",
+      "description": ""
+    },
+    {
+      "id": 7,
+      "name": "Ramayan",
+      "link": "",
+      "authorName": "",
+      "category": "Religion",
+      "description": ""
+    },
+    {
+      "id": 8,
+      "name": "Tours and Travels",
+      "link": "",
+      "authorName": "",
+      "category": "Travel",
+      "description": ""
+    },
+    {
+      "id": 9,
+      "name": "Art and Drawing",
+      "link": "",
+      "authorName": "",
+      "category": "Art",
+      "description": ""
+    }
+  ]
 }

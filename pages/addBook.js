@@ -1,21 +1,17 @@
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { useQueries } from '@tanstack/react-query';
-import { BeatLoader } from 'react-spinners';
-import PointText from '../components/text/PointText';
-import Text from '../components/text/Text';
+import React, { useState } from 'react';
+
 import Title from '../components/text/Title';
-import { getSingleMeal } from './books/[id]';
+import { getSingleBook } from './books/[id]';
 import classes from './savedBooks.module.scss';
 
 function addBook() {
   const [bookName, setBookName] = useState("");
   const [bookTags, setbookTags] = useState("");
 
-//   const queries = savedMealsId.map((id) => (
+//   const queries = savedBooksId.map((id) => (
 //     {
-//       queryKey: ['singleMeal', id],
-//       queryFn: getSingleMeal,
+//       queryKey: ['singleBook', id],
+//       queryFn: getSingleBook,
 //     }
 //   ));
 
@@ -41,8 +37,8 @@ function addBook() {
 //   const result = useQueries({ queries });
 
 //   useEffect(() => {
-//     if (localStorage.getItem('savedMeals')) {
-//       setSavedMealsId(JSON.parse(localStorage.getItem('savedMeals')));
+//     if (localStorage.getItem('savedBooks')) {
+//       setSavedMealsId(JSON.parse(localStorage.getItem('savedBooks')));
 //     }
 //   }, []);
 
@@ -63,7 +59,7 @@ function addBook() {
             />
             <button type='submit'>Add</button>
         </form>
-        {/* {savedMealsId.length <= 0 && <Text>You have no saved meals</Text>}
+        {/* {savedMealsId.length <= 0 && <Text>You have no saved books</Text>}
         {result && result.map(({ data, isLoading }, index) => {
           if (isLoading) {
             return (
@@ -72,9 +68,9 @@ function addBook() {
           }
 
           return (
-            <Link href={`/books/${data.idMeal}`} key={data.idMeal}>
-              <a className={classes.singleMeal}>
-                <Title variant="secondary" className={classes.mealTitle}>{data.strMeal}</Title>
+            <Link href={`/books/${data.idBook}`} key={data.idBook}>
+              <a className={classes.singleBook}>
+                <Title variant="secondary" className={classes.bookTitle}>{data.strBook}</Title>
                 <PointText>
                   Category:
                   {' '}
