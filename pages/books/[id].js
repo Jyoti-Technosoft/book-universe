@@ -32,8 +32,8 @@ function SingleBooks() {
 
   useEffect(() => {
     if (localStorage.getItem("savedBooks")) {
-      const savedBooks = JSON.parse(localStorage.getItem("books"));
-      if (savedBooks.includes(id)) {
+      const savedIds = JSON.parse(localStorage.getItem("savedBooks"));
+      if (savedIds.indexOf(id) != -1){
         setIsSaved(true);
       } else {
         setIsSaved(false);
@@ -92,11 +92,11 @@ function SingleBooks() {
             Description: {data.description}
           </PointText>
 
-          {/* {isSaved && (
+          {isSaved && (
             <Text className={classes.greenText}>
               You already saved the book.
             </Text>
-          )} */}
+          )}
           <Button
             variant="primary"
             className={classes.saveButton}
