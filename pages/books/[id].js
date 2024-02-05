@@ -70,15 +70,15 @@ function SingleBooks() {
     <div className={classes.pageWrapper}>
       <div className={classes.topContainer}>
         <div className={classes.img}>
-          <Image
-            src={data.strBookThumb}
+          <img
+            src="https://img.thriftbooks.com/api/images/s/ba220c3fd29fcb7c136edc27ae8b373c2dd588c1.jpg"
             height={300}
             width={300}
-            alt={data.strBook}
+            alt={data.bookName}
           />
         </div>
         <div className={classes.info}>
-          <Title variant="primary">{data.name}</Title>
+          <Title variant="primary">{data.bookName}</Title>
           <PointText className={classes.infoText}>
             Author: {data.authorName}
           </PointText>

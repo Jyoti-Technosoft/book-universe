@@ -13,10 +13,10 @@ function SingleBookCard({ book }) {
           src={book.image}
           height="200"
           width="300"
-          alt={book.name}
+          alt={book.bookName}
         />
         <Title className={classes.title} variant="secondary">
-          {book.name}
+          {book.bookName}
         </Title>
       </a>
     </Link>
