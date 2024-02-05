@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";	
+
 * {
 	padding: 0;
 	margin: 0;
@@ -7,7 +9,7 @@
 :root {
 	--primary-color: #e85d04;
 	--secondary-color: #313235;
-	--background-color: #1f2023;
+	--background-color: #1f2023 !important;
 	--text-color: #717171;
 	--text-color-light: #9f9f9f;
 	--white: #fff;
@@ -17,8 +19,13 @@
 html {
 	font-family: 'Poppins', sans-serif;
 	font-size: 10px;
-	color: var(--white);
+	color: var(--white) !important;
 	background: var(--background-color);
+}
+
+body {
+	background-color: var(--background-color);
+	color: white;
 }
 
 a {

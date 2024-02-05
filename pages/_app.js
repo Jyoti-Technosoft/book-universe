@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
 
 import Layout from "../components/layout/Layout";
+import Header from "../components/header/header";
 import { getSingleBook } from "./books/[id]";
 import "../styles/global.css";
 
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Header />
       <Head>
         <title>Book Universe</title>
         <meta

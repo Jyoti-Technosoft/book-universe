@@ -38,7 +38,7 @@ function addBook() {
           description,
           authorName,
           dateOfPublish,
-        }
+        };
         books.push(book);
       } else {
         book = {
@@ -49,10 +49,8 @@ function addBook() {
           description: description,
           authorName: authorName,
           dateOfPublish: dateOfPublish,
-        }
-        books = [
-          book
-        ];
+        };
+        books = [book];
       }
       window.localStorage.setItem("books", JSON.stringify(books));
       router.push(`/books/${book.id}`);
@@ -93,8 +91,10 @@ function addBook() {
             onChange={(e) => setBookLink(e.target.value)}
           />
           <textarea
+            rows={4}
+            cols={40}
             placeholder="Description"
-            className={classes.input}
+            className={classes.textArea}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -111,7 +111,12 @@ function addBook() {
             value={dateOfPublish}
             onChange={(e) => setDateOfPublish(e.target.value)}
           />
-          <button className={classes.addButton} onClick={() => submitBookData()}>Add</button>
+          <button
+            className={classes.addButton}
+            onClick={() => submitBookData()}
+          >
+            Add
+          </button>
         </form>
         {/* {savedMealsId.length <= 0 && <Text>You have no saved meals</Text>}
         {result && result.map(({ data, isLoading }, index) => {
