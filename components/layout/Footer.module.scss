@@ -1,9 +1,26 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
 .footer {
 	background-color: var(--secondary-color);
 	text-align: center;
 	padding: 3rem 0rem;
+	margin-top: auto;
+	/* This will push the footer to the bottom of the container */
+
+	@media only screen and (max-width: 768px) {
+		padding: 2rem 0rem;
+	}
 }
+
 .copyright {
 	margin-top: 1.2rem;
 	font-size: 1.2rem;
+
+	@media only screen and (max-width: 768px) {
+		font-size: 1rem;
+	}
 }
