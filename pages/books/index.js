@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import BeatLoader from "react-spinners/BeatLoader";
@@ -9,7 +8,6 @@ import SingleBookCard from "../../components/booksPage/SingleBookCard";
 import PointText from "../../components/text/PointText";
 import Text from "../../components/text/Text";
 import categories from "../../assets/categories.json";
-import books from "../../assets/books.json";
 import classes from "./books.module.scss";
 
 const override = {
@@ -17,13 +15,13 @@ const override = {
   margin: "0 auto",
 };
 
-const getBooks = async () => {
-  return books.data || [];
-};
-
-
 const getCategories = async () => {
   return categories.data;
+};
+
+const getBooks = async () => {
+  const storedBooks = JSON.parse(localStorage.getItem("books")) || [];
+  return storedBooks;
 };
 
 function Books() {
@@ -38,14 +36,13 @@ function Books() {
     error: categoryError,
   } = useQuery(["catagories"], getCategories);
 
-
-  const { data: books, isLoading, isError } = useQuery(
-    ["booksByCategory", selectedCategory],
-    getBooks,
-    {
-      enabled: query === "",
-    }
-  );
+  const {
+    data: books,
+    isLoading,
+    isError,
+  } = useQuery(["booksByCategory", selectedCategory], getBooks, {
+    enabled: query === "",
+  });
 
   useEffect(() => {
     const timeout = setTimeout(() => {

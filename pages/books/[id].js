@@ -12,6 +12,7 @@ import PointText from "../../components/text/PointText";
 import { Button } from "../../components/button/Button";
 import Text from "../../components/text/Text";
 import classes from "./books.module.scss";
+import altBookPng from "../../assets/altBook.png";
 
 export const getSingleBook = async ({ queryKey }) => {
   let books = localStorage.getItem("books");
@@ -70,11 +71,11 @@ function SingleBooks() {
     <div className={classes.pageWrapper}>
       <div className={classes.topContainer}>
         <div className={classes.img}>
-          <img
-            src="https://img.thriftbooks.com/api/images/s/ba220c3fd29fcb7c136edc27ae8b373c2dd588c1.jpg"
+          <Image
+            src={data.bookImg ? data.bookImg : altBookPng}
             height={300}
             width={300}
-            alt={data.bookName}
+            alt={altBookPng}
           />
         </div>
         <div className={classes.info}>

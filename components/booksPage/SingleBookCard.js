@@ -4,15 +4,16 @@ import React from "react";
 
 import Title from "../text/Title";
 import classes from "./SingleBookCard.module.scss";
+import bookIcon from "../../assets/altBook.png";
 
 function SingleBookCard({ book }) {
   return (
     <Link href="/books/[id]" as={`/books/${book.id}`}>
       <a className={classes.item}>
         <Image
-          src={book.image}
+          src={book.bookImg ? book.bookImg : bookIcon}
           height="200"
-          width="300"
+          width="200"
           alt={book.bookName}
         />
         <Title className={classes.title} variant="secondary">
