@@ -49,19 +49,13 @@ function SavedBooks() {
               <Link href={`/books/${data.id}`} key={data.id}>
                 <a className={classes.singleBook}>
                   <Title variant="secondary" className={classes.bookTitle}>
-                    {data.name}
+                    {data.bookName}
                   </Title>
                   <PointText className={classes.infoText}>
                     Author: {data.authorName}
                   </PointText>
                   <PointText className={classes.infoText}>
-                    Date Of Publish: {data.dateOfPublish}
-                  </PointText>
-                  <PointText className={classes.infoText}>
                     Category: {data.bookCategory}
-                  </PointText>
-                  <PointText className={classes.infoText}>
-                    Description: {data.description}
                   </PointText>
                 </a>
               </Link>

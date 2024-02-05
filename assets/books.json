@@ -2,93 +2,103 @@
   "data": [
     {
       "id": 0,
-      "name": "Art and History",
-      "link": "",
+      "bookName": "Art and History",
+      "bookLink": "",
       "authorName": "",
-      "category": "Art",
+      "bookCategory": "Art",
       "description": "",
-      "image": "/art.jpg"
+      "image": "/art.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 1,
-      "name": "Classic Fiction",
-      "link": "",
+      "bookName": "Classic Fiction",
+      "bookLink": "",
       "authorName": "",
-      "category": "Fiction",
+      "bookCategory": "Fiction",
       "description": "",
-      "image": "/classic-fiction.jpg"
+      "image": "/classic-fiction.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 2,
-      "name": "Comic Book or Graphic Novel",
-      "link": "",
+      "bookName": "Comic Book or Graphic Novel",
+      "bookLink": "",
       "authorName": "",
-      "category": "Comic",
+      "bookCategory": "Comic",
       "description": "",
-      "image": "/comic.jpg"
+      "image": "/comic.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 3,
-      "name": "Cooking",
-      "link": "",
+      "bookName": "Cooking",
+      "bookLink": "",
       "authorName": "",
-      "category": "Cooking",
+      "bookCategory": "Cooking",
       "description": "",
-      "image": "/cooking.jpg"
+      "image": "/cooking.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 4,
-      "name": "Detective and Mystery",
-      "link": "",
+      "bookName": "Detective and Mystery",
+      "bookLink": "",
       "authorName": "",
-      "category": "Detective",
+      "bookCategory": "Detective",
       "description": "",
-      "image": "/detective.jpg"
+      "image": "/detective.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 5,
-      "name": "Horror",
-      "link": "",
+      "bookName": "Horror",
+      "bookLink": "",
       "authorName": "",
-      "category": "Horror",
+      "bookCategory": "Horror",
       "description": "",
-      "image": "/horror.jpg"
+      "image": "/horror.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 6,
-      "name": "Literature Fiction",
-      "link": "",
+      "bookName": "Literature Fiction",
+      "bookLink": "",
       "authorName": "",
-      "category": "Art",
+      "bookCategory": "Art",
       "description": "",
-      "image": "/literature-fiction.jpg"
+      "image": "/literature-fiction.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 7,
-      "name": "Ramayan",
-      "link": "",
+      "bookName": "Ramayan",
+      "bookLink": "",
       "authorName": "",
-      "category": "Religion",
+      "bookCategory": "Religion",
       "description": "",
-      "image": "/religion.jpg"
+      "image": "/religion.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 8,
-      "name": "Tours and Travels",
-      "link": "",
+      "bookName": "Tours and Travels",
+      "bookLink": "",
       "authorName": "",
-      "category": "Travel",
+      "bookCategory": "Travel",
       "description": "",
-      "image": "/travel.jpg"
+      "image": "/travel.jpg",
+      "dateOfPublish": "1920-22-01"
     },
     {
       "id": 9,
-      "name": "Art and Drawing",
-      "link": "",
+      "bookName": "Art and Drawing",
+      "bookLink": "",
       "authorName": "",
-      "category": "Art",
+      "bookCategory": "Art",
       "description": "",
-      "image": "/art2.jpg"
+      "image": "/art2.jpg",
+      "dateOfPublish": "1920-22-01"
     }
   ]
 }

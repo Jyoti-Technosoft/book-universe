@@ -1,13 +1,6 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useQueries } from "@tanstack/react-query";
-import { BeatLoader } from "react-spinners";
-import PointText from "../components/text/PointText";
-import Text from "../components/text/Text";
+import React, { useState } from "react";
 import Title from "../components/text/Title";
-import { getSingleMeal } from "./books/[id]";
 import classes from "./savedBooks.module.scss";
-import ButtonWithLink from "../components/button/Button";
 
 function addBook() {
   const [bookName, setBookName] = useState("");
@@ -16,13 +9,6 @@ function addBook() {
   const [description, setDescription] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [dateOfPublish, setDateOfPublish] = useState("");
-
-  //   const queries = savedMealsId.map((id) => (
-  //     {
-  //       queryKey: ['singleMeal', id],
-  //       queryFn: getSingleMeal,
-  //     }
-  //   ));
 
   const submitBookData = () => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -56,14 +42,6 @@ function addBook() {
       router.push(`/books/${book.id}`);
     }
   };
-
-  //   const result = useQueries({ queries });
-
-  //   useEffect(() => {
-  //     if (localStorage.getItem('savedMeals')) {
-  //       setSavedMealsId(JSON.parse(localStorage.getItem('savedMeals')));
-  //     }
-  //   }, []);
 
   return (
     <div className={classes.pageWrapper}>
@@ -118,32 +96,6 @@ function addBook() {
             Add
           </button>
         </form>
-        {/* {savedMealsId.length <= 0 && <Text>You have no saved meals</Text>}
-        {result && result.map(({ data, isLoading }, index) => {
-          if (isLoading) {
-            return (
-              <BeatLoader key={savedMealsId[[index]]} color="#fff" loading={isLoading} size={20} />
-            );
-          }
-
-          return (
-            <Link href={`/books/${data.idMeal}`} key={data.idMeal}>
-              <a className={classes.singleMeal}>
-                <Title variant="secondary" className={classes.mealTitle}>{data.strMeal}</Title>
-                <PointText>
-                  Category:
-                  {' '}
-                  {data.strCategory}
-                </PointText>
-                <PointText>
-                  Area:
-                  {' '}
-                  {data.strArea}
-                </PointText>
-              </a>
-            </Link>
-          );
-        })} */}
       </div>
     </div>
   );
