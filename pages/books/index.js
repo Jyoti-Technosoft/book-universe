@@ -19,9 +19,27 @@ const getCategories = async () => {
   return categories.data;
 };
 
-const getBooks = async () => {
+const getBooks = async (selectedCategory) => {
   const storedBooks = JSON.parse(localStorage.getItem("books")) || [];
-  return storedBooks;
+  if (selectedCategory.queryKey[1] === undefined) {
+    return storedBooks;
+  } else {
+    return storedBooks.filter((book) =>
+      book.bookCategory
+        .toLowerCase()
+        .includes(selectedCategory.queryKey[1].toLowerCase())
+    );
+  }
+};
+
+const getQueriedBook = async (query) => {
+  const storedBooks = JSON.parse(localStorage.getItem("books")) || [];
+  if (query.queryKey[1] === undefined) {
+    return storedBooks;
+  }
+  return storedBooks.filter((book) =>
+    book.bookName.toLowerCase().includes(query.queryKey[1].toLowerCase())
+  );
 };
 
 function Books() {
@@ -35,6 +53,14 @@ function Books() {
     isError: categoryIsError,
     error: categoryError,
   } = useQuery(["catagories"], getCategories);
+
+  const {
+    data: queriedData,
+    isLoading: queryIsLoading,
+    isError: queryError,
+  } = useQuery(["booksByQuery", query], getQueriedBook, {
+    enabled: query !== "",
+  });
 
   const {
     data: books,
@@ -95,12 +121,20 @@ function Books() {
       ) : null}
 
       <div className={classes.books__container}>
-        {!isLoading &&
-          !isError &&
+        {
+          !queriedData &&
           books &&
           books.map((book) => <SingleBookCard key={book.id} book={book} />)}
 
-        {books && books.length === 0 && <Text>No books found</Text>}
+        {
+          queriedData &&
+          queriedData.map((book) => (
+            <SingleBookCard key={book.id} book={book} />
+          ))}
+
+        {books && !queriedData && books.length === 0 && (
+          <Text>No books found</Text>
+        )}
       </div>
     </div>
   );

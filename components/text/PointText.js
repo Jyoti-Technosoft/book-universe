@@ -1,7 +1,8 @@
-import React from 'react';
-import clsx from 'clsx';
-import Text from './Text';
-import classes from './PointText.module.scss';
+import React from "react";
+import clsx from "clsx";
+
+import Text from "./Text";
+import classes from "./PointText.module.scss";
 
 function PointText({ children, className }) {
   return (

@@ -30,7 +30,7 @@ export default function Categories({
           key={index}
           category={item}
           onClickHandler={() => {
-            setSelectedCategory(item);
+            setSelectedCategory(item === selectedCategory ? "" : item);
             setQuery('');
           }}
           selectedCategory={selectedCategory}

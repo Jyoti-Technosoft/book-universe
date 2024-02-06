@@ -1,15 +1,18 @@
 .books__page {
   padding: 5rem 0;
 }
+
 .text {
   margin-top: 1rem;
 }
+
 .books__container {
   margin-top: 5rem;
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
+
 .loadingSpinner {
   padding: 50px 0;
   display: flex;
@@ -21,27 +24,59 @@
 .pageWrapper {
   padding: 10rem 0;
 }
+
 .topContainer {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 5rem;
 }
+
+.img {
+  align-self: center;
+}
+
 .info {
   padding-top: 2rem;
 }
+
 .infoText {
   padding-top: 1rem;
 }
+
 .saveButton {
   margin-top: 2rem;
+
   svg {
     margin-bottom: -2.5px;
   }
 }
+
 .greenText {
   margin-top: 2rem;
   color: #00b300;
+}
+
+.mainDiv {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.0rem;
+  flex-wrap: wrap;
+}
+
+.subDiv {
+  width: fit-content;
+  color: #d78b5a;
+  background: #453828;
+  border-radius: 15px;
+  padding: 8px;
+  margin: 4px;
+  font-size: 1.6rem;
+  font-family: sans-serif;
+  margin-bottom: 1rem;
+  margin-right: 0.5rem;
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: 768px) {

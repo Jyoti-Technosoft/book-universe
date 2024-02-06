@@ -29,17 +29,13 @@ function addBook() {
     }
     if (!dateOfPublish) {
       errors.dateOfPublish = "Date Of Publish is required.";
-    } else if (isDateInTheFuture(dateOfPublish)) {
-      errors.dateOfPublish = "Date Of Publish is invalid.";
     }
-
     setErrors(errors);
   };
 
-  const isDateInTheFuture = (date) => {
-    const currentDate = new Date();
-    const selectedDate = new Date(date);
-    return selectedDate > currentDate;
+  const todayDATE = () => {
+    const today = new Date().toISOString().split("T")[0];
+    return today;
   };
 
   const submitBookData = async () => {
@@ -132,7 +128,7 @@ function addBook() {
           {errors.authorName && <p style={styles.error}>{errors.authorName}</p>}
           <input
             type="date"
-            max="2024-02-05"
+            max={todayDATE()}
             placeholder="Date Of Publish*"
             className={classes.input}
             value={dateOfPublish}

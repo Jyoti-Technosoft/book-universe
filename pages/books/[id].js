@@ -25,16 +25,13 @@ export const getSingleBook = async ({ queryKey }) => {
 function SingleBooks() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading, isError } = useQuery(
-    ["id", id],
-    getSingleBook
-  );
+  const { data, isLoading, isError } = useQuery(["id", id], getSingleBook);
   const [isSaved, setIsSaved] = React.useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("savedBooks")) {
       const savedIds = JSON.parse(localStorage.getItem("savedBooks"));
-      if (savedIds.indexOf(parseInt(id)) >= 0){
+      if (savedIds.indexOf(parseInt(id)) >= 0) {
         setIsSaved(true);
       } else {
         setIsSaved(false);
@@ -67,14 +64,21 @@ function SingleBooks() {
     }
   };
 
+  const bookCategory = data.bookCategory;
+
+  function formatDate(date) {
+    const [year, month, day] = date.split("-");
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <div className={classes.pageWrapper}>
       <div className={classes.topContainer}>
         <div className={classes.img}>
           <Image
             src={data.bookImg ? data.bookImg : altBookPng}
-            height={300}
-            width={300}
+            height={data.bookImg ? 2000 : 300}
+            width={data.bookImg ? 1500 : 300}
             alt={altBookPng}
           />
         </div>
@@ -84,14 +88,18 @@ function SingleBooks() {
             Author: {data.authorName}
           </PointText>
           <PointText className={classes.infoText}>
-            Date Of Publish: {data.dateOfPublish}
-          </PointText>
-          <PointText className={classes.infoText}>
-            Category: {data.bookCategory}
+            Date Of Publish: {formatDate(data.dateOfPublish)}
           </PointText>
           <PointText className={classes.infoText}>
             Description: {data.description}
           </PointText>
+          <div className={classes.mainDiv}>
+            {bookCategory.split(",").map((text, index) => (
+              <div className={classes.subDiv} key={index}>
+                {text}
+              </div>
+            ))}
+          </div>
 
           {isSaved && (
             <Text className={classes.greenText}>
