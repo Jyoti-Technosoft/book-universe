@@ -25,12 +25,12 @@ export default function Categories({
 
   return (
     <div className={classes.categories__container}>
-      {categories.map((item, index) => (
+      {categories.map((item) => (
         <CategoryItem
-          key={index}
+          key={`${item}`}
           category={item}
           onClickHandler={() => {
-            setSelectedCategory(item === selectedCategory ? "" : item);
+            setSelectedCategory(item === selectedCategory ? '' : item);
             setQuery('');
           }}
           selectedCategory={selectedCategory}

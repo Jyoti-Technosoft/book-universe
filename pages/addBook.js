@@ -1,48 +1,64 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
-import Title from "../components/text/Title";
-import classes from "./savedBooks.module.scss";
+import Title from '../components/text/Title';
+import classes from './savedBooks.module.scss';
 
-function addBook() {
-  const [bookImg, setBookImg] = useState("");
-  const [bookName, setBookName] = useState("");
-  const [bookCategory, setBookCategory] = useState("");
-  const [bookLink, setBookLink] = useState("");
-  const [description, setDescription] = useState("");
-  const [authorName, setAuthorName] = useState("");
-  const [dateOfPublish, setDateOfPublish] = useState("");
+function AddBook() {
+  const [bookImg, setBookImg] = useState('');
+  const [bookName, setBookName] = useState('');
+  const [bookCategory, setBookCategory] = useState('');
+  const [bookLink, setBookLink] = useState('');
+  const [description, setDescription] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [dateOfPublish, setDateOfPublish] = useState('');
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
-  const validateForm = () => {
-    let errors = {};
+  const styles = {
+    error: {
+      color: 'red',
+      fontSize: '14px',
+      marginBottom: '6px',
+    },
+  };
 
-    if (!bookName) {
-      errors.bookName = "Book Name is required.";
-    }
-    if (!bookCategory) {
-      errors.bookCategory = "Book Category is required.";
-    }
-    if (!authorName) {
-      errors.authorName = "Book Author Name is required.";
-    }
-    if (!dateOfPublish) {
-      errors.dateOfPublish = "Date Of Publish is required.";
-    }
-    setErrors(errors);
+  const isDateInTheFuture = (date) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    return selectedDate > currentDate;
   };
 
   const todayDATE = () => {
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split('T')[0];
     return today;
+  };
+
+  const validateForm = () => {
+    const errorsData = {};
+
+    if (!bookName) {
+      errorsData.bookName = 'Book Name is required.';
+    }
+    if (!bookCategory) {
+      errorsData.bookCategory = 'Book Category is required.';
+    }
+    if (!authorName) {
+      errorsData.authorName = 'Book Author Name is required.';
+    }
+    if (!dateOfPublish) {
+      errors.dateOfPublish = 'Date Of Publish is required.';
+    } else if (isDateInTheFuture(dateOfPublish)) {
+      errors.dateOfPublish = 'Date Of Publish is invalid.';
+    }
+    setErrors(errors);
   };
 
   const submitBookData = async () => {
     validateForm();
 
-    if (typeof window !== "undefined" && window.localStorage) {
-      let books = window.localStorage.getItem("books");
+    if (typeof window !== 'undefined' && window.localStorage) {
+      let books = window.localStorage.getItem('books');
       let book = null;
       if (books) {
         books = JSON.parse(books);
@@ -60,17 +76,17 @@ function addBook() {
       } else {
         book = {
           id: 1,
-          bookName: bookName,
-          bookCategory: bookCategory,
-          bookLink: bookLink,
-          description: description,
-          authorName: authorName,
-          dateOfPublish: dateOfPublish,
-          bookImg: bookImg,
+          bookName,
+          bookCategory,
+          bookLink,
+          description,
+          authorName,
+          dateOfPublish,
+          bookImg,
         };
         books = [book];
       }
-      window.localStorage.setItem("books", JSON.stringify(books));
+      window.localStorage.setItem('books', JSON.stringify(books));
       router.push(`/books/${book.id}`);
     }
   };
@@ -139,7 +155,7 @@ function addBook() {
           )}
           <button
             type="button"
-            style={{ marginTop: "4%" }}
+            style={{ marginTop: '4%' }}
             className={classes.addButton}
             onClick={() => submitBookData()}
           >
@@ -150,11 +166,5 @@ function addBook() {
     </div>
   );
 }
-const styles = {
-  error: {
-    color: "red",
-    fontSize: "14px",
-    marginBottom: "6px",
-  },
-};
-export default addBook;
+
+export default AddBook;

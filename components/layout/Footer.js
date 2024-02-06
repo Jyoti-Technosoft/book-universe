@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./Footer.module.scss";
-import Text from "../text/Text";
+import classes from './Footer.module.scss';
+import Text from '../text/Text';
 
 function Footer() {
   return (

@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-import Title from "../text/Title";
-import classes from "./SingleBookCard.module.scss";
-import bookIcon from "../../assets/altBook.png";
+import Title from '../text/Title';
+import classes from './SingleBookCard.module.scss';
+import bookIcon from '../../assets/altBook.png';
 
 function SingleBookCard({ book }) {
   return (

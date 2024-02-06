@@ -1,7 +1,7 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
-import classes from "./Navbar.module.scss";
+import classes from './Navbar.module.scss';
 
 function Navbar() {
   return (
