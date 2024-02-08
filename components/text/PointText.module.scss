@@ -4,6 +4,15 @@
 	justify-content: flex-start;
 	gap: 1rem;
 }
+
+.text {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .circle {
 	margin-top: 0.9rem;
 	width: 8px;
@@ -13,6 +22,7 @@
 	background-color: var(--primary-color);
 	display: inline-block;
 }
+
 @media only screen and (max-width: 768px) {
 	.circle {
 		margin: 0.5rem 0;

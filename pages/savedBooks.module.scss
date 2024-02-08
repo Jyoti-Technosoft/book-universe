@@ -5,6 +5,10 @@
 }
 
 .singleBook {
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	overflow: hidden;
 	padding: 2rem;
 	background-color: #393b40;
 	border-radius: 6px;
@@ -16,6 +20,7 @@
 
 .bookTitle {
 	margin-bottom: 1rem;
+	margin-top: 0px;
 }
 
 .pageWrapper {

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 import Title from '../components/text/Title';
 import classes from './savedBooks.module.scss';
 
 function AddBook() {
+  const [bookId, setBookId] = useState('');
   const [bookImg, setBookImg] = useState('');
   const [bookName, setBookName] = useState('');
   const [bookCategory, setBookCategory] = useState('');
@@ -17,22 +19,29 @@ function AddBook() {
 
   const styles = {
     error: {
-      color: 'red',
+      color: '#E85D04',
       fontSize: '14px',
       marginBottom: '6px',
     },
   };
 
-  const isDateInTheFuture = (date) => {
-    const currentDate = new Date();
-    const selectedDate = new Date(date);
-    return selectedDate > currentDate;
-  };
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        const response = await fetch('/api/books');
+        if (response.status === 200) {
+          const data = await response.json();
+          setBookId(data.books.length + 1);
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      } catch (error) {
+        toast.error(`Error:${error}`);
+      }
+    }
 
-  const todayDATE = () => {
-    const today = new Date().toISOString().split('T')[0];
-    return today;
-  };
+    fetchBooks();
+  }, []);
 
   const validateForm = () => {
     const errorsData = {};
@@ -47,48 +56,45 @@ function AddBook() {
       errorsData.authorName = 'Book Author Name is required.';
     }
     if (!dateOfPublish) {
-      errors.dateOfPublish = 'Date Of Publish is required.';
-    } else if (isDateInTheFuture(dateOfPublish)) {
-      errors.dateOfPublish = 'Date Of Publish is invalid.';
+      errorsData.dateOfPublish = 'Date Of Publish is required.';
     }
-    setErrors(errors);
+    setErrors(errorsData);
+    return Object.keys(errorsData).length === 0;
+  };
+
+  const todayDATE = () => {
+    const today = new Date().toISOString().split('T')[0];
+    return today;
   };
 
   const submitBookData = async () => {
-    validateForm();
+    if (!validateForm()) return;
 
-    if (typeof window !== 'undefined' && window.localStorage) {
-      let books = window.localStorage.getItem('books');
-      let book = null;
-      if (books) {
-        books = JSON.parse(books);
-        book = {
-          id: books.length + 1,
-          bookName,
-          bookCategory,
-          bookLink,
-          description,
-          authorName,
-          dateOfPublish,
-          bookImg,
-        };
-        books.push(book);
-      } else {
-        book = {
-          id: 1,
-          bookName,
-          bookCategory,
-          bookLink,
-          description,
-          authorName,
-          dateOfPublish,
-          bookImg,
-        };
-        books = [book];
-      }
-      window.localStorage.setItem('books', JSON.stringify(books));
-      router.push(`/books/${book.id}`);
+    const response = await fetch('/api/addBook', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        bookId,
+        bookName,
+        bookCategory,
+        bookLink,
+        description,
+        authorName,
+        dateOfPublish,
+        bookImg,
+      }),
+    });
+
+    if (response.ok) {
+      // console.log(bookId);
+      toast.success('Book Added successfully!');
+    } else {
+      toast.error('Something went wrong!');
     }
+
+    router.push(`/books/${bookId}`);
   };
 
   return (

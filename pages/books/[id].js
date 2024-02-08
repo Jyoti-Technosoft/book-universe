@@ -14,20 +14,19 @@ import classes from './books.module.scss';
 import altBookPng from '../../assets/altBook.png';
 
 export const getSingleBook = async ({ queryKey }) => {
-  let books = localStorage.getItem('books');
-  if (books) {
-    books = JSON.parse(books);
+  const response = await fetch('/api/books');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
   }
+  const data = await response.json();
+  const { books } = data;
   return books[queryKey[1] - 1];
 };
 
 function SingleBooks() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading, isError } = useQuery(
-    ['id', id],
-    getSingleBook,
-  );
+  const { data, isLoading, isError } = useQuery(['id', id], getSingleBook);
   const [isSaved, setIsSaved] = React.useState(false);
 
   useEffect(() => {
@@ -54,12 +53,12 @@ function SingleBooks() {
   const handleSaveButtonClick = async () => {
     const savedBooks = JSON.parse(localStorage.getItem('savedBooks'));
     if (!isSaved) {
-      savedBooks.push(data.id);
+      savedBooks.push(data.bookId);
       localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
       toast.success('Book saved successfully');
       setIsSaved(true);
     } else {
-      savedBooks.splice(savedBooks.indexOf(data.id), 1);
+      savedBooks.splice(savedBooks.indexOf(data.bookId), 1);
       localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
       setIsSaved(false);
       toast.error('Book Removed successfully');
@@ -76,11 +75,11 @@ function SingleBooks() {
   return (
     <div className={classes.pageWrapper}>
       <div className={classes.topContainer}>
-        <div className={classes.img}>
+        <div className={classes.img} height={400} width={250}>
           <Image
             src={data.bookImg ? data.bookImg : altBookPng}
-            height={data.bookImg ? 2000 : 300}
-            width={data.bookImg ? 1500 : 300}
+            height="350px"
+            width="240px"
             alt={altBookPng}
           />
         </div>

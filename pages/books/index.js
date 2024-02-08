@@ -18,7 +18,12 @@ const override = {
 const getCategories = async () => categoriesData.data;
 
 const getBooks = async (selectedCategory) => {
-  const storedBooks = JSON.parse(localStorage.getItem('books')) || [];
+  const response = await fetch('/api/books');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  const storedBooks = data.books;
   if (selectedCategory.queryKey[1] === undefined) {
     return storedBooks;
   }
@@ -28,7 +33,12 @@ const getBooks = async (selectedCategory) => {
 };
 
 const getQueriedBook = async (query) => {
-  const storedBooks = JSON.parse(localStorage.getItem('books')) || [];
+  const response = await fetch('/api/books');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  const storedBooks = data.books;
   if (query.queryKey[1] === undefined) {
     return storedBooks;
   }
@@ -111,18 +121,14 @@ function Books() {
       ) : null}
 
       <div className={classes.books__container}>
-        {
-          !queriedData
+        {!queriedData
           && books
-          && books.map((book) => <SingleBookCard key={book.id} book={book} />)
-}
+          && books.map((book) => <SingleBookCard key={book.bookId} book={book} />)}
 
-        {
-          queriedData
+        {queriedData
           && queriedData.map((book) => (
-            <SingleBookCard key={book.id} book={book} />
-          ))
-}
+            <SingleBookCard key={book.bookId} book={book} />
+          ))}
 
         {books && !queriedData && books.length === 0 && (
           <Text>No books found</Text>

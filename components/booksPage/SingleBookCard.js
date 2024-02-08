@@ -8,11 +8,12 @@ import bookIcon from '../../assets/altBook.png';
 
 function SingleBookCard({ book }) {
   return (
-    <Link href="/books/[id]" as={`/books/${book.id}`}>
+    <Link href="/books/[id]" as={`/books/${book.bookId}`}>
       <a className={classes.item}>
         <Image
+          className={classes.singleImage}
           src={book.bookImg ? book.bookImg : bookIcon}
-          height="200"
+          height="300"
           width="200"
           alt={book.bookName}
         />
