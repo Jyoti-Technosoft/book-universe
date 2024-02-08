@@ -97,7 +97,7 @@ function Books() {
   return (
     <div className={classes.books__page}>
       <SearchBar searchText={searchText} setSearchText={setSearchText} />
-      <PointText className={classes.text}>search books</PointText>
+      <PointText className={classes.text}>Search Books</PointText>
 
       <Categories
         setSelectedCategory={setSelectedCategory}
