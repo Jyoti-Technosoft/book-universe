@@ -49,7 +49,11 @@ function SingleBooks() {
   }
 
   if (isLoading || !data) {
-    return <BeatLoader color="#fff" size={20} />;
+    return (
+      <div className={classes.footer}>
+        <BeatLoader color="#fff" size={30} />
+      </div>
+    );
   }
 
   const handleSaveButtonClick = async () => {
@@ -89,17 +93,16 @@ function SingleBooks() {
           />
         </div>
         <div className={classes.info}>
-          <button
-            type="button"
-            className="btn"
+          <a
+            href={data.bookLink}
+            target="_blank"
+            rel="noopener noreferrer"
             data-toggle="tooltip"
             data-placement="top"
             title="Click here to go to Book.."
           >
-            <a href={data.bookLink}>
-              <Title variant="primary">{data.bookName}</Title>
-            </a>
-          </button>
+            <Title variant="primary">{data.bookName}</Title>
+          </a>
           <PointText className={classes.infoText}>
             Author:
             {' '}

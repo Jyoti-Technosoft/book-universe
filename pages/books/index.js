@@ -57,18 +57,21 @@ function Books() {
     error: categoryError,
   } = useQuery(['catagories'], getCategories);
 
-  const {
-    data: queriedData,
-  } = useQuery(['booksByQuery', query], getQueriedBook, {
-    enabled: query !== '',
-  });
+  const { data: queriedData } = useQuery(
+    ['booksByQuery', query],
+    getQueriedBook,
+    {
+      enabled: query !== '',
+    },
+  );
 
-  const {
-    data: books,
-    isLoading,
-  } = useQuery(['booksByCategory', selectedCategory], getBooks, {
-    enabled: query === '',
-  });
+  const { data: books, isLoading } = useQuery(
+    ['booksByCategory', selectedCategory],
+    getBooks,
+    {
+      enabled: query === '',
+    },
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -123,14 +126,14 @@ function Books() {
       <div className={classes.books__container}>
         {!queriedData
           && books
-          && books.map((book) => <SingleBookCard key={book.bookId} book={book} />)}
+          && books?.map((book) => <SingleBookCard key={book.bookId} book={book} />)}
 
         {queriedData
-          && queriedData.map((book) => (
+          && queriedData?.map((book) => (
             <SingleBookCard key={book.bookId} book={book} />
           ))}
 
-        {books && !queriedData && books.length === 0 && (
+        {books && !queriedData && books?.length === 0 && (
           <Text>No books found</Text>
         )}
       </div>
