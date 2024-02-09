@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 
 import Title from "../components/text/Title";
-import classes from "./savedBooks.module.scss";
+import classes from "./addBook.module.scss";
 import altBookPng from "../assets/altBook.png";
 
 function AddBook() {
@@ -31,7 +31,6 @@ function AddBook() {
       minHeight: "420px",
       maxHeight: "420px",
       maxWidth: "280px",
-      // objectFit: "cover", // Add this line
     },
   };
 
@@ -100,7 +99,6 @@ function AddBook() {
     });
 
     if (response.ok) {
-      // console.log(bookId);
       toast.success("Book Added successfully!");
     } else {
       toast.error("Something went wrong!");
@@ -111,96 +109,94 @@ function AddBook() {
   };
 
   return (
-    <>
-      <div className={classes.pageWrapper}>
-        <Title variant="primary" className={classes.pageTitle}>
-          Add Book
-        </Title>
-        <div className={classes.list_container}>
-          <div className={classes.formWrapper}>
-            <form>
-              <input
-                placeholder="Book Image Url"
-                className={classes.input}
-                value={bookImg}
-                onChange={(e) => setBookImg(e.target.value)}
-              />
-
-              <input
-                placeholder="Book Name*"
-                className={classes.input}
-                value={bookName}
-                onChange={(e) => setBookName(e.target.value)}
-              />
-              {errors.bookName && <p style={styles.error}>{errors.bookName}</p>}
-              <input
-                placeholder="Book Category*"
-                className={classes.input}
-                value={bookCategory}
-                onChange={(e) => setBookCategory(e.target.value)}
-              />
-              {errors.bookCategory && (
-                <p style={styles.error}>{errors.bookCategory}</p>
-              )}
-              <input
-                placeholder="Book Link"
-                className={classes.input}
-                value={bookLink}
-                onChange={(e) => setBookLink(e.target.value)}
-              />
-              <textarea
-                rows={4}
-                cols={40}
-                placeholder="Description"
-                className={classes.textArea}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <input
-                placeholder="Author Name*"
-                className={classes.input}
-                value={authorName}
-                onChange={(e) => setAuthorName(e.target.value)}
-              />
-              {errors.authorName && (
-                <p style={styles.error}>{errors.authorName}</p>
-              )}
-              <input
-                type="date"
-                max={todayDATE()}
-                placeholder="Date Of Publish*"
-                className={classes.input}
-                value={dateOfPublish}
-                onChange={(e) => setDateOfPublish(e.target.value)}
-              />
-              {errors.dateOfPublish && (
-                <p style={styles.error}>{errors.dateOfPublish}</p>
-              )}
-              <br />
-              <button
-                type="button"
-                style={{ marginTop: "4%", marginLeft: "24%" }}
-                className={classes.addButton}
-                onClick={() => submitBookData()}
-                disabled={isAdding}
-              >
-                {isAdding ? "Adding...." : "Add Book"}
-              </button>
-            </form>
-          </div>
-
-          <div className={classes.img} height={400} width={250}>
-            <Image
-              src={bookImg ? bookImg : altBookPng}
-              height={360}
-              width={240}
-              alt="book"
-              style={styles.image}
+    <div className={classes.pageWrapper}>
+      <Title variant="primary" className={classes.pageTitle}>
+        Add Book
+      </Title>
+      <div className={classes.list_container}>
+        <div className={classes.formWrapper}>
+          <form>
+            <input
+              placeholder="Book Image Url"
+              className={classes.input}
+              value={bookImg}
+              onChange={(e) => setBookImg(e.target.value)}
             />
-          </div>
+
+            <input
+              placeholder="Book Name*"
+              className={classes.input}
+              value={bookName}
+              onChange={(e) => setBookName(e.target.value)}
+            />
+            {errors.bookName && <p style={styles.error}>{errors.bookName}</p>}
+            <input
+              placeholder="Book Category*"
+              className={classes.input}
+              value={bookCategory}
+              onChange={(e) => setBookCategory(e.target.value)}
+            />
+            {errors.bookCategory && (
+              <p style={styles.error}>{errors.bookCategory}</p>
+            )}
+            <input
+              placeholder="Book Link"
+              className={classes.input}
+              value={bookLink}
+              onChange={(e) => setBookLink(e.target.value)}
+            />
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Description"
+              className={classes.textArea}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              placeholder="Author Name*"
+              className={classes.input}
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+            />
+            {errors.authorName && (
+              <p style={styles.error}>{errors.authorName}</p>
+            )}
+            <input
+              type="date"
+              max={todayDATE()}
+              placeholder="Date Of Publish*"
+              className={classes.input}
+              value={dateOfPublish}
+              onChange={(e) => setDateOfPublish(e.target.value)}
+            />
+            {errors.dateOfPublish && (
+              <p style={styles.error}>{errors.dateOfPublish}</p>
+            )}
+            <br />
+            <button
+              type="button"
+              style={{ marginTop: "4%" }}
+              className={classes.addButton}
+              onClick={() => submitBookData()}
+              disabled={isAdding}
+            >
+              {isAdding ? "Adding...." : "Add Book"}
+            </button>
+          </form>
+        </div>
+
+        <div className={classes.img} height={400} width={250}>
+          <Image
+            src={bookImg || altBookPng}
+            height={360}
+            width={240}
+            alt="book"
+            style={styles.image}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

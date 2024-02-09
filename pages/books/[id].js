@@ -20,7 +20,9 @@ export const getSingleBook = async ({ queryKey }) => {
   }
   const data = await response.json();
   const { books } = data;
-  return books[queryKey[1] - 1];
+  return books
+    .filter((book) => book.bookId === parseInt(queryKey[1], 10))
+    .reduce((acc, obj) => obj);
 };
 
 function SingleBooks() {
@@ -68,8 +70,11 @@ function SingleBooks() {
   const { bookCategory } = data;
 
   function formatDate(date) {
-    const [year, month, day] = date.split("-");
-    return `${day}-${month}-${year}`;
+    if (date?.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = date.split("-");
+      return `${day}-${month}-${year}`;
+    }
+    return date;
   }
 
   return (
@@ -86,7 +91,7 @@ function SingleBooks() {
         <div className={classes.info}>
           <button
             type="button"
-            class="btn"
+            className="btn"
             data-toggle="tooltip"
             data-placement="top"
             title="Click here to go to Book.."
@@ -105,7 +110,7 @@ function SingleBooks() {
             Description: {data.description}
           </PointText>
           <div className={classes.mainDiv}>
-            {bookCategory.split(",").map((text) => (
+            {bookCategory?.split(",").map((text) => (
               <div className={classes.subDiv} key={text}>
                 {text}
               </div>

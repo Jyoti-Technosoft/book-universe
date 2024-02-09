@@ -1,0 +1,121 @@
+.list_container {
+    display: grid;
+    gap: 10rem;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+    text-align: center;
+}
+
+.singleBook {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow: hidden;
+    padding: 2rem;
+    background-color: #393b40;
+    border-radius: 6px;
+}
+
+.pageTitle {
+    margin-bottom: 2rem;
+}
+
+.bookTitle {
+    margin-bottom: 1rem;
+    margin-top: 0px;
+}
+
+.pageWrapper {
+    padding: 6rem 0;
+    min-height: 100vh;
+}
+
+.input {
+    margin-top: 4%;
+    max-width: 500px;
+    background: var(--secondary-color);
+    border: none;
+    width: 160%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 3rem 2rem;
+    font-size: 2rem;
+    outline: none;
+    color: var(--white);
+    border: 2px solid transparent;
+
+    &::-webkit-calendar-picker-indicator {
+        filter: invert(1); // Change the color of the calendar icon
+    }
+
+    &:focus {
+        border: 2px solid var(--primary-color);
+    }
+
+}
+
+.textArea {
+    // resize: none;
+    margin-top: 4%;
+    max-width: 500px;
+    background: var(--secondary-color);
+    border: none;
+    width: 160%;
+    height: 130px;
+    border-radius: 5px;
+    padding: 1.5rem 2rem;
+    font-size: 2rem;
+    outline: none;
+    color: var(--white);
+    border: 2px solid transparent;
+
+    &:focus {
+        border: 2px solid var(--primary-color);
+    }
+}
+
+.addButton {
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #e85d04;
+    margin-top: 4%;
+    min-width: 10%;
+    place-self: center;
+}
+
+.img {
+    align-self: center;
+    min-height: 400px;
+    min-width: 250px;
+    max-height: 420px;
+    max-width: 260px;
+}
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 100%;
+    align-self: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .list_container {
+        grid-template-columns: 1fr;
+    }
+
+    .formWrapper {
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .addButton {
+        padding: 1rem 1rem;
+        font-size: 1.6rem;
+    }
+}
