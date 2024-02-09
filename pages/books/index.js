@@ -133,6 +133,8 @@ function Books() {
             <SingleBookCard key={book.bookId} book={book} />
           ))}
 
+        {queriedData?.length === 0 && <Text>No books found</Text>}
+
         {books && !queriedData && books?.length === 0 && (
           <Text>No books found</Text>
         )}
