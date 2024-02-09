@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
-import { BeatLoader } from "react-spinners";
-import Image from "next/image";
-import { FaHeartBroken, FaHeart } from "react-icons/fa";
-import toast from "react-hot-toast";
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { BeatLoader } from 'react-spinners';
+import Image from 'next/image';
+import { FaHeartBroken, FaHeart } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
-import Title from "../../components/text/Title";
-import PointText from "../../components/text/PointText";
-import { Button } from "../../components/button/Button";
-import Text from "../../components/text/Text";
-import classes from "./books.module.scss";
-import altBookPng from "../../assets/altBook.png";
+import Title from '../../components/text/Title';
+import PointText from '../../components/text/PointText';
+import { Button } from '../../components/button/Button';
+import Text from '../../components/text/Text';
+import classes from './books.module.scss';
+import altBookPng from '../../assets/altBook.png';
 
 export const getSingleBook = async ({ queryKey }) => {
-  const response = await fetch("/api/books");
+  const response = await fetch('/api/books');
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error('Network response was not ok');
   }
   const data = await response.json();
   const { books } = data;
@@ -28,19 +28,19 @@ export const getSingleBook = async ({ queryKey }) => {
 function SingleBooks() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading, isError } = useQuery(["id", id], getSingleBook);
+  const { data, isLoading, isError } = useQuery(['id', id], getSingleBook);
   const [isSaved, setIsSaved] = React.useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("savedBooks")) {
-      const savedIds = JSON.parse(localStorage.getItem("savedBooks"));
+    if (localStorage.getItem('savedBooks')) {
+      const savedIds = JSON.parse(localStorage.getItem('savedBooks'));
       if (savedIds.indexOf(parseInt(id, 10)) >= 0) {
         setIsSaved(true);
       } else {
         setIsSaved(false);
       }
     } else {
-      localStorage.setItem("books", JSON.stringify([]));
+      localStorage.setItem('books', JSON.stringify([]));
     }
   }, [id]);
 
@@ -53,17 +53,17 @@ function SingleBooks() {
   }
 
   const handleSaveButtonClick = async () => {
-    const savedBooks = JSON.parse(localStorage.getItem("savedBooks"));
+    const savedBooks = JSON.parse(localStorage.getItem('savedBooks'));
     if (!isSaved) {
       savedBooks.push(data.bookId);
-      localStorage.setItem("savedBooks", JSON.stringify(savedBooks));
-      toast.success("Book saved successfully");
+      localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
+      toast.success('Book saved successfully');
       setIsSaved(true);
     } else {
       savedBooks.splice(savedBooks.indexOf(data.bookId), 1);
-      localStorage.setItem("savedBooks", JSON.stringify(savedBooks));
+      localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
       setIsSaved(false);
-      toast.error("Book Removed successfully");
+      toast.error('Book Removed successfully');
     }
   };
 
@@ -71,7 +71,7 @@ function SingleBooks() {
 
   function formatDate(date) {
     if (date?.match(/^\d{4}-\d{2}-\d{2}$/)) {
-      const [year, month, day] = date.split("-");
+      const [year, month, day] = date.split('-');
       return `${day}-${month}-${year}`;
     }
     return date;
@@ -101,16 +101,22 @@ function SingleBooks() {
             </a>
           </button>
           <PointText className={classes.infoText}>
-            Author: {data.authorName}
+            Author:
+            {' '}
+            {data.authorName}
           </PointText>
           <PointText className={classes.infoText}>
-            Date Of Publish: {formatDate(data.dateOfPublish)}
+            Date Of Publish:
+            {' '}
+            {formatDate(data.dateOfPublish)}
           </PointText>
           <PointText className={classes.infoText}>
-            Description: {data.description}
+            Description:
+            {' '}
+            {data.description}
           </PointText>
           <div className={classes.mainDiv}>
-            {bookCategory?.split(",").map((text) => (
+            {bookCategory?.split(',').map((text) => (
               <div className={classes.subDiv} key={text}>
                 {text}
               </div>
@@ -129,11 +135,15 @@ function SingleBooks() {
           >
             {isSaved ? (
               <>
-                <FaHeartBroken /> Remove
+                <FaHeartBroken />
+                {' '}
+                Remove
               </>
             ) : (
               <>
-                <FaHeart className={classes.saveIcon} /> save
+                <FaHeart className={classes.saveIcon} />
+                {' '}
+                save
               </>
             )}
           </Button>

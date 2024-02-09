@@ -1,48 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import toast from "react-hot-toast";
-import Image from "next/image";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
+import Image from 'next/image';
 
-import Title from "../components/text/Title";
-import classes from "./addBook.module.scss";
-import altBookPng from "../assets/altBook.png";
+import Title from '../components/text/Title';
+import classes from './addBook.module.scss';
+import altBookPng from '../assets/altBook.png';
 
 function AddBook() {
-  const [bookId, setBookId] = useState("");
-  const [bookImg, setBookImg] = useState("");
-  const [bookName, setBookName] = useState("");
-  const [bookCategory, setBookCategory] = useState("");
-  const [bookLink, setBookLink] = useState("");
-  const [description, setDescription] = useState("");
-  const [authorName, setAuthorName] = useState("");
-  const [dateOfPublish, setDateOfPublish] = useState("");
+  const [bookId, setBookId] = useState('');
+  const [bookImg, setBookImg] = useState('');
+  const [bookName, setBookName] = useState('');
+  const [bookCategory, setBookCategory] = useState('');
+  const [bookLink, setBookLink] = useState('');
+  const [description, setDescription] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [dateOfPublish, setDateOfPublish] = useState('');
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const [isAdding, setIsAdding] = useState(false);
 
   const styles = {
     error: {
-      color: "#E85D04",
-      fontSize: "14px",
-      marginBottom: "6px",
+      color: '#E85D04',
+      fontSize: '14px',
+      marginBottom: '6px',
     },
     image: {
-      alignSelf: "center",
-      minHeight: "420px",
-      maxHeight: "420px",
-      maxWidth: "280px",
+      alignSelf: 'center',
+      minHeight: '420px',
+      maxHeight: '420px',
+      maxWidth: '280px',
     },
   };
 
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await fetch("/api/books");
+        const response = await fetch('/api/books');
         if (response.status === 200) {
           const data = await response.json();
           setBookId(data.books.length + 1);
         } else {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
       } catch (error) {
         toast.error(`Error:${error}`);
@@ -56,23 +56,23 @@ function AddBook() {
     const errorsData = {};
 
     if (!bookName) {
-      errorsData.bookName = "Book Name is required.";
+      errorsData.bookName = 'Book Name is required.';
     }
     if (!bookCategory) {
-      errorsData.bookCategory = "Book Category is required.";
+      errorsData.bookCategory = 'Book Category is required.';
     }
     if (!authorName) {
-      errorsData.authorName = "Book Author Name is required.";
+      errorsData.authorName = 'Book Author Name is required.';
     }
     if (!dateOfPublish) {
-      errorsData.dateOfPublish = "Date Of Publish is required.";
+      errorsData.dateOfPublish = 'Date Of Publish is required.';
     }
     setErrors(errorsData);
     return Object.keys(errorsData).length === 0;
   };
 
   const todayDATE = () => {
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split('T')[0];
     return today;
   };
 
@@ -81,10 +81,10 @@ function AddBook() {
 
     setIsAdding(true);
 
-    const response = await fetch("/api/addBook", {
-      method: "POST",
+    const response = await fetch('/api/addBook', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         bookId,
@@ -99,9 +99,9 @@ function AddBook() {
     });
 
     if (response.ok) {
-      toast.success("Book Added successfully!");
+      toast.success('Book Added successfully!');
     } else {
-      toast.error("Something went wrong!");
+      toast.error('Something went wrong!');
     }
 
     setIsAdding(false);
@@ -176,12 +176,12 @@ function AddBook() {
             <br />
             <button
               type="button"
-              style={{ marginTop: "4%" }}
+              style={{ marginTop: '4%' }}
               className={classes.addButton}
               onClick={() => submitBookData()}
               disabled={isAdding}
             >
-              {isAdding ? "Adding...." : "Add Book"}
+              {isAdding ? 'Adding....' : 'Add Book'}
             </button>
           </form>
         </div>

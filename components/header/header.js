@@ -1,12 +1,12 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 function header() {
   const elementStyle = {
-    "--bs-bg-opacity": 0,
-    fontSize: "medium",
+    '--bs-bg-opacity': 0,
+    fontSize: 'medium',
   };
 
   return (
@@ -19,7 +19,7 @@ function header() {
       <Container>
         <Navbar.Brand
           href="/"
-          style={{ font: "caption", fontSize: "xx-large" }}
+          style={{ font: 'caption', fontSize: 'xx-large' }}
         >
           Book Universe
         </Navbar.Brand>
@@ -27,7 +27,7 @@ function header() {
         <Navbar.Collapse
           id="basic-navbar-nav"
           style={{
-            flexGrow: "0",
+            flexGrow: '0',
           }}
         >
           <Nav className="me-auto">
