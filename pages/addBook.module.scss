@@ -30,6 +30,35 @@
     min-height: 100vh;
 }
 
+.borderDiv {
+    text-align-last: center;
+    border: ridge;
+    border-color: #9f9f9fa8;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 4%
+}
+
+.orLable {
+    font-size: x-large;
+    font-family: "Mirza", sans-serif;
+    color: #9f9f9f;
+}
+
+.lableInput {
+    background: #313235;
+    border: 2px solid transparent;
+    max-width: 500px;
+    text-align: start;
+    color: #717171;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0rem 2rem;
+    padding-bottom: 8.7rem;
+    font-size: 2rem;
+    outline: none;
+}
+
 .input {
     margin-top: 4%;
     max-width: 500px;
@@ -52,6 +81,15 @@
         border: 2px solid var(--primary-color);
     }
 
+    &::-webkit-datetime-edit {
+        color: #717171;
+    }
+
+}
+
+input[type="date"]:not(.has-value):before {
+    color: #717171;
+    content: attr(placeholder);
 }
 
 .textArea {

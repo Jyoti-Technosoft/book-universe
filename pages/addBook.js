@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import Upload from '../components/upload/Upload';
 
 import Title from '../components/text/Title';
 import classes from './addBook.module.scss';
@@ -117,13 +118,6 @@ function AddBook() {
         <div className={classes.formWrapper}>
           <form>
             <input
-              placeholder="Book Image Url"
-              className={classes.input}
-              value={bookImg}
-              onChange={(e) => setBookImg(e.target.value)}
-            />
-
-            <input
               placeholder="Book Name*"
               className={classes.input}
               value={bookName}
@@ -135,29 +129,56 @@ function AddBook() {
               className={classes.input}
               value={bookCategory}
               onChange={(e) => setBookCategory(e.target.value)}
+              style={{ marginBottom: '4%' }}
             />
             {errors.bookCategory && (
               <p style={styles.error}>{errors.bookCategory}</p>
             )}
-            <input
-              placeholder="Book Link"
-              className={classes.input}
-              value={bookLink}
-              onChange={(e) => setBookLink(e.target.value)}
-            />
-            <textarea
-              rows={4}
-              cols={40}
-              placeholder="Description"
-              className={classes.textArea}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+
+            <div className={classes.borderDiv}>
+              <label className={classes.lableInput}>
+                <span>
+                  Add Your Book Cover Page
+                  <Upload setBookImg={setBookImg} iP="i" />
+                </span>
+              </label>
+              <br />
+              <label className={classes.orLable}>OR</label>
+              <br />
+              <input
+                placeholder="Book's Cover Image Url"
+                className={classes.input}
+                value={bookImg}
+                onChange={(e) => setBookImg(e.target.value)}
+                style={{ marginTop: '1%', width: 'fit-content' }}
+              />
+            </div>
+
+            <div className={classes.borderDiv}>
+              <label className={classes.lableInput}>
+                <span>
+                  Add Your Book!
+                  <Upload setBookLink={setBookLink} iP="p" />
+                </span>
+              </label>
+              <br />
+              <label className={classes.orLable}>OR</label>
+              <br />
+              <input
+                placeholder="Book's Link"
+                className={classes.input}
+                value={bookLink}
+                onChange={(e) => setBookLink(e.target.value)}
+                style={{ marginTop: '1%', width: 'fit-content' }}
+              />
+            </div>
+
             <input
               placeholder="Author Name*"
               className={classes.input}
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
+              style={{ marginTop: '0%' }}
             />
             {errors.authorName && (
               <p style={styles.error}>{errors.authorName}</p>
@@ -169,6 +190,14 @@ function AddBook() {
               className={classes.input}
               value={dateOfPublish}
               onChange={(e) => setDateOfPublish(e.target.value)}
+            />
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Description"
+              className={classes.textArea}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
             {errors.dateOfPublish && (
               <p style={styles.error}>{errors.dateOfPublish}</p>

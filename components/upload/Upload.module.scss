@@ -1,0 +1,22 @@
+.inputFile {
+	margin-top: 1rem;
+	font-size: small;
+
+	&::file-selector-button {
+		font-weight: 500;
+		font-family: sans-serif;
+		color: #ffffffea;
+		padding: 0.3em;
+		background-color: #e85d04;
+		border: none;
+		border-radius: 6px;
+		font-size: 1.6rem;
+	}
+
+	&::file-selector-button:hover {
+		background-color: #aa4404;
+		color: #ffffff;
+		cursor: grab;
+		;
+	}
+}
