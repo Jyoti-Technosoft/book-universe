@@ -1,49 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import Image from 'next/image';
-import Upload from '../components/upload/Upload';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import Image from "next/image";
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Upload from "../components/upload/Upload";
+import { storage } from "../firebase";
 
-import Title from '../components/text/Title';
-import classes from './addBook.module.scss';
-import altBookPng from '../assets/altBook.png';
+import Title from "../components/text/Title";
+import classes from "./addBook.module.scss";
+import altBookPng from "../assets/altBook.png";
 
 function AddBook() {
-  const [bookId, setBookId] = useState('');
-  const [bookImg, setBookImg] = useState('');
-  const [bookName, setBookName] = useState('');
-  const [bookCategory, setBookCategory] = useState('');
-  const [bookLink, setBookLink] = useState('');
-  const [description, setDescription] = useState('');
-  const [authorName, setAuthorName] = useState('');
-  const [dateOfPublish, setDateOfPublish] = useState('');
+  const [bookId, setBookId] = useState("");
+  const [bookImg, setBookImg] = useState("");
+  const [bookName, setBookName] = useState("");
+  const [bookCategory, setBookCategory] = useState("");
+  const [bookLink, setBookLink] = useState("");
+  const [description, setDescription] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [dateOfPublish, setDateOfPublish] = useState("");
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const [isAdding, setIsAdding] = useState(false);
+  const [imgRefPreview, setImgRefPreview] = useState("");
+  const [eOfImage, setEOfImage] = useState("");
+  const [eOfFile, setEOfFile] = useState("");
 
   const styles = {
     error: {
-      color: '#E85D04',
-      fontSize: '14px',
-      marginBottom: '6px',
+      color: "#E85D04",
+      fontSize: "14px",
+      marginBottom: "6px",
     },
     image: {
-      alignSelf: 'center',
-      minHeight: '420px',
-      maxHeight: '420px',
-      maxWidth: '280px',
+      alignSelf: "center",
+      minHeight: "420px",
+      maxHeight: "420px",
+      maxWidth: "280px",
     },
   };
 
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await fetch('/api/books');
+        const response = await fetch("/api/books");
         if (response.status === 200) {
           const data = await response.json();
           setBookId(data.books.length + 1);
         } else {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
       } catch (error) {
         toast.error(`Error:${error}`);
@@ -57,56 +63,101 @@ function AddBook() {
     const errorsData = {};
 
     if (!bookName) {
-      errorsData.bookName = 'Book Name is required.';
+      errorsData.bookName = "Book Name is required.";
     }
     if (!bookCategory) {
-      errorsData.bookCategory = 'Book Category is required.';
+      errorsData.bookCategory = "Book Category is required.";
     }
     if (!authorName) {
-      errorsData.authorName = 'Book Author Name is required.';
+      errorsData.authorName = "Book Author Name is required.";
     }
     if (!dateOfPublish) {
-      errorsData.dateOfPublish = 'Date Of Publish is required.';
+      errorsData.dateOfPublish = "Date Of Publish is required.";
     }
     setErrors(errorsData);
     return Object.keys(errorsData).length === 0;
   };
 
   const todayDATE = () => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     return today;
   };
+
+  async function uploadImage() {
+    return new Promise((resolve, reject) => {
+      const bookImage = ref(storage, `book_Img/${v4()}`);
+      uploadBytes(bookImage, eOfImage.target.files[0])
+        .then((data) => {
+          getDownloadURL(data.ref)
+            .then((val) => {
+              setBookImg(val);
+              resolve(val);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  }
+
+  async function uploadFile() {
+    return new Promise((resolve, reject) => {
+      const bookFile = ref(
+        storage,
+        `book_${eOfFile.target.files[0].name.substring(eOfFile.target.files[0].name.lastIndexOf(".") + 1, eOfFile.target.files[0].name.length)}/${v4()}`
+      );
+      uploadBytes(bookFile, eOfFile.target.files[0])
+        .then((data) => {
+          getDownloadURL(data.ref)
+            .then((val) => {
+              setBookLink(val);
+              resolve(val);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  }
 
   const submitBookData = async () => {
     if (!validateForm()) return;
 
     setIsAdding(true);
 
-    const response = await fetch('/api/addBook', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        bookId,
-        bookName,
-        bookCategory,
-        bookLink,
-        description,
-        authorName,
-        dateOfPublish,
-        bookImg,
-      }),
-    });
-
-    if (response.ok) {
-      toast.success('Book Added successfully!');
-    } else {
-      toast.error('Something went wrong!');
+    // instade use of v4() functionwe also use e.target.files[0].name if wee need to store book as same name
+    let bLink = null;
+    let bImage = null;
+    if (eOfImage) {
+      bImage = await uploadImage();
     }
+    if (eOfFile) {
+      bLink = await uploadFile();
+    }
+    const book = {
+      bookId,
+      bookName,
+      bookCategory,
+      bookLink: eOfFile ? bLink : bookLink,
+      description,
+      authorName,
+      dateOfPublish,
+      bookImg: eOfImage ? bImage : bookImg,
+    };
+    fetch("/api/addBook", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(book),
+    }).then((response) => {
+      if (response.ok) {
+        toast.success("Book Added successfully!");
+      } else {
+        toast.error("Something went wrong!");
+      }
 
-    setIsAdding(false);
-    router.push(`/books/${bookId}`);
+      setIsAdding(false);
+      router.push(`/books/${bookId}`);
+    });
   };
 
   return (
@@ -129,7 +180,7 @@ function AddBook() {
               className={classes.input}
               value={bookCategory}
               onChange={(e) => setBookCategory(e.target.value)}
-              style={{ marginBottom: '4%' }}
+              style={{ marginBottom: "4%" }}
             />
             {errors.bookCategory && (
               <p style={styles.error}>{errors.bookCategory}</p>
@@ -139,7 +190,12 @@ function AddBook() {
               <label className={classes.lableInput}>
                 <span>
                   Add Your Book Cover Page
-                  <Upload setBookImg={setBookImg} iP="i" />
+                  <Upload
+                    bookImg={bookImg}
+                    setEOfImage={setEOfImage}
+                    setImgRefPreview={setImgRefPreview}
+                    iP="i"
+                  />
                 </span>
               </label>
               <br />
@@ -150,7 +206,13 @@ function AddBook() {
                 className={classes.input}
                 value={bookImg}
                 onChange={(e) => setBookImg(e.target.value)}
-                style={{ marginTop: '1%', width: 'fit-content' }}
+                style={{
+                  marginTop: "1%",
+                  width: "fit-content",
+                  textDecorationLine: eOfImage ? "line-through" : "",
+                  color: "#717171",
+                }}
+                disabled={eOfImage}
               />
             </div>
 
@@ -158,7 +220,7 @@ function AddBook() {
               <label className={classes.lableInput}>
                 <span>
                   Add Your Book!
-                  <Upload setBookLink={setBookLink} iP="p" />
+                  <Upload bookLink={bookLink} setEOfFile={setEOfFile} iP="p" />
                 </span>
               </label>
               <br />
@@ -169,7 +231,13 @@ function AddBook() {
                 className={classes.input}
                 value={bookLink}
                 onChange={(e) => setBookLink(e.target.value)}
-                style={{ marginTop: '1%', width: 'fit-content' }}
+                style={{
+                  marginTop: "1%",
+                  width: "fit-content",
+                  textDecorationLine: eOfFile ? "line-through" : "",
+                  color: "#717171",
+                }}
+                disabled={eOfFile}
               />
             </div>
 
@@ -178,7 +246,7 @@ function AddBook() {
               className={classes.input}
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
-              style={{ marginTop: '0%' }}
+              style={{ marginTop: "0%" }}
             />
             {errors.authorName && (
               <p style={styles.error}>{errors.authorName}</p>
@@ -205,19 +273,19 @@ function AddBook() {
             <br />
             <button
               type="button"
-              style={{ marginTop: '4%' }}
+              style={{ marginTop: "4%" }}
               className={classes.addButton}
               onClick={() => submitBookData()}
               disabled={isAdding}
             >
-              {isAdding ? 'Adding....' : 'Add Book'}
+              {isAdding ? "Adding...." : "Add Book"}
             </button>
           </form>
         </div>
 
         <div className={classes.img} height={400} width={250}>
           <Image
-            src={bookImg || altBookPng}
+            src={imgRefPreview || bookImg || altBookPng}
             height={360}
             width={240}
             alt="book"
