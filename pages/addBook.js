@@ -254,7 +254,7 @@ function AddBook() {
             <input
               type="date"
               max={todayDATE()}
-              placeholder="Date Of Publish*"
+              placeholder="Date Of Publish"
               className={classes.input}
               value={dateOfPublish}
               onChange={(e) => setDateOfPublish(e.target.value)}

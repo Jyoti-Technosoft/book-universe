@@ -18,6 +18,8 @@ function Upload({
         break;
       case 'application':
       case 'text':
+      case '':
+        // console.log(e.target.files[0]);
         setEOfFile(e);
         break;
       default:
