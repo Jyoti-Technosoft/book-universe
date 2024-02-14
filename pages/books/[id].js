@@ -101,7 +101,9 @@ function SingleBooks() {
             data-placement="top"
             title="Click here to go to Book.."
           >
-            <Title variant="primary">{data.bookName}</Title>
+            <Title className={classes.linkTextDecoration} variant="primary">
+              {data.bookName}
+            </Title>
           </a>
           <PointText className={classes.infoText}>
             Author:

@@ -25,7 +25,12 @@ function Header() {
       <Container>
         <Link href="/" passHref>
           <Navbar.Brand
-            style={{ font: 'caption', fontSize: 'xx-large', ...isActive('/') }}
+            style={{
+              font: 'caption',
+              fontSize: 'xx-large',
+              ...isActive('/'),
+              userSelect: 'none',
+            }}
           >
             Book Universe
           </Navbar.Brand>
@@ -39,13 +44,21 @@ function Header() {
         >
           <Nav className="me-auto">
             <Link href="/savedBooks" passHref>
-              <Nav.Link style={isActive('/savedBooks')}>Saved Books</Nav.Link>
+              <Nav.Link
+                style={{ ...isActive('/savedBooks'), userSelect: 'none' }}
+              >
+                Saved Books
+              </Nav.Link>
             </Link>
             <Link href="/addBook" passHref>
-              <Nav.Link style={isActive('/addBook')}>Add Books</Nav.Link>
+              <Nav.Link style={{ ...isActive('/addBook'), userSelect: 'none' }}>
+                Add Books
+              </Nav.Link>
             </Link>
             <Link href="/books" passHref>
-              <Nav.Link style={isActive('/books')}>Explore Books</Nav.Link>
+              <Nav.Link style={{ ...isActive('/books'), userSelect: 'none' }}>
+                Explore Books
+              </Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>

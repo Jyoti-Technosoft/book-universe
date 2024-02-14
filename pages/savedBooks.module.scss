@@ -11,10 +11,17 @@
 	padding: 2rem;
 	background-color: #393b40;
 	border-radius: 6px;
+
+	&:hover {
+		background-color: #292a2c;
+		cursor: alias;
+		;
+	}
 }
 
 .pageTitle {
 	margin-bottom: 2rem;
+	user-select: none;
 }
 
 .bookTitle {
@@ -27,6 +34,6 @@
 }
 
 .pageWrapper {
-	padding: 6rem 0;
+	padding: 3rem 0;
 	min-height: 100vh;
 }

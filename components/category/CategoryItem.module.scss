@@ -7,7 +7,14 @@
 	border-radius: 6px;
 	cursor: pointer;
 	border: 2px solid var(--secondary-color);
+
+	&:hover {
+		background-color: #9c4109;
+		color: #ffffff;
+		cursor: pointer;
+	}
 }
+
 .item__selected {
 	border: 2px solid var(--primary-color);
 }

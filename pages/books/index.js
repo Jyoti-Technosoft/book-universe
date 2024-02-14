@@ -126,7 +126,9 @@ function Books() {
       <div className={classes.books__container}>
         {!queriedData
           && books
-          && books?.map((book) => <SingleBookCard key={book.bookId} book={book} />)}
+          && books?.map((book) => (
+            <SingleBookCard key={book.bookId} book={book} />
+          ))}
 
         {queriedData
           && queriedData?.map((book) => (

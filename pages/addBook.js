@@ -4,9 +4,10 @@ import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { BeatLoader } from 'react-spinners';
+
 import Upload from '../components/upload/Upload';
 import { storage } from '../firebase';
-
 import Title from '../components/text/Title';
 import classes from './addBook.module.scss';
 import altBookPng from '../assets/altBook.png';
@@ -161,139 +162,161 @@ function AddBook() {
   };
 
   return (
-    <div className={classes.pageWrapper}>
-      <Title variant="primary" className={classes.pageTitle}>
-        Add Book
-      </Title>
-      <div className={classes.list_container}>
-        <div className={classes.formWrapper}>
-          <form>
-            <input
-              placeholder="Book Name*"
-              className={classes.input}
-              value={bookName}
-              onChange={(e) => setBookName(e.target.value)}
-            />
-            {errors.bookName && <p style={styles.error}>{errors.bookName}</p>}
-            <input
-              placeholder="Book Category*"
-              className={classes.input}
-              value={bookCategory}
-              onChange={(e) => setBookCategory(e.target.value)}
-              style={{ marginBottom: '4%' }}
-            />
-            {errors.bookCategory && (
-              <p style={styles.error}>{errors.bookCategory}</p>
-            )}
-
-            <div className={classes.borderDiv}>
-              <label className={classes.lableInput}>
-                <span>
-                  Add Your Book Cover Page
-                  <Upload
-                    bookImg={bookImg}
-                    setEOfImage={setEOfImage}
-                    setImgRefPreview={setImgRefPreview}
-                    iP="i"
-                  />
-                </span>
-              </label>
-              <br />
-              <label className={classes.orLable}>OR</label>
-              <br />
+    <>
+      <div style={{ visibility: isAdding ? 'visible' : 'hidden' }}>
+        <BeatLoader
+          className={classes.largeBeatLoader}
+          size={50}
+          color="#fff"
+        />
+      </div>
+      <div
+        className={classes.pageWrapper}
+        style={{
+          filter: isAdding ? 'blur(2px)' : 'none',
+          opacity: isAdding ? '0.4' : 'unset',
+          pointerEvents: isAdding ? 'none' : 'all',
+        }}
+      >
+        <Title variant="primary" className={classes.pageTitle}>
+          Add Book
+        </Title>
+        <div className={classes.list_container}>
+          <div className={classes.formWrapper}>
+            <form>
               <input
-                placeholder="Book's Cover Image Url"
+                placeholder="Book Name*"
                 className={classes.input}
-                value={bookImg}
-                onChange={(e) => setBookImg(e.target.value)}
-                style={{
-                  marginTop: '1%',
-                  width: 'fit-content',
-                  textDecorationLine: eOfImage ? 'line-through' : '',
-                  color: '#717171',
-                }}
-                disabled={eOfImage}
+                value={bookName}
+                onChange={(e) => setBookName(e.target.value)}
               />
-            </div>
-
-            <div className={classes.borderDiv}>
-              <label className={classes.lableInput}>
-                <span>
-                  Add Your Book!
-                  <Upload bookLink={bookLink} setEOfFile={setEOfFile} iP="p" />
-                </span>
-              </label>
-              <br />
-              <label className={classes.orLable}>OR</label>
-              <br />
+              {errors.bookName && <p style={styles.error}>{errors.bookName}</p>}
               <input
-                placeholder="Book's Link"
+                placeholder="Book Category*"
                 className={classes.input}
-                value={bookLink}
-                onChange={(e) => setBookLink(e.target.value)}
-                style={{
-                  marginTop: '1%',
-                  width: 'fit-content',
-                  textDecorationLine: eOfFile ? 'line-through' : '',
-                  color: '#717171',
-                }}
-                disabled={eOfFile}
+                value={bookCategory}
+                onChange={(e) => setBookCategory(e.target.value)}
+                style={{ marginBottom: '4%' }}
               />
-            </div>
+              {errors.bookCategory && (
+                <p style={styles.error}>{errors.bookCategory}</p>
+              )}
 
-            <input
-              placeholder="Author Name*"
-              className={classes.input}
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              style={{ marginTop: '0%' }}
-            />
-            {errors.authorName && (
-              <p style={styles.error}>{errors.authorName}</p>
-            )}
-            <input
-              type="date"
-              max={todayDATE()}
-              placeholder="Date Of Publish"
-              className={classes.input}
-              value={dateOfPublish}
-              onChange={(e) => setDateOfPublish(e.target.value)}
-            />
-            <textarea
-              rows={4}
-              cols={40}
-              placeholder="Description"
-              className={classes.textArea}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            {errors.dateOfPublish && (
-              <p style={styles.error}>{errors.dateOfPublish}</p>
-            )}
-            <br />
-            <button
-              type="button"
-              style={{ marginTop: '4%' }}
-              className={classes.addButton}
-              onClick={() => submitBookData()}
-              disabled={isAdding}
-            >
-              {isAdding ? 'Adding....' : 'Add Book'}
-            </button>
-          </form>
-        </div>
+              <div className={classes.borderDiv}>
+                <label className={classes.lableInput}>
+                  <span>
+                    Add Your Book Cover Page
+                    <Upload
+                      bookImg={bookImg}
+                      setEOfImage={setEOfImage}
+                      setImgRefPreview={setImgRefPreview}
+                      iP="i"
+                    />
+                  </span>
+                </label>
+                <br />
+                <label className={classes.orLable}>OR</label>
+                <br />
+                <input
+                  placeholder="Book's Cover Image Url"
+                  className={classes.input}
+                  value={bookImg}
+                  onChange={(e) => setBookImg(e.target.value)}
+                  style={{
+                    marginTop: '1%',
+                    width: 'fit-content',
+                    textDecorationLine: eOfImage ? 'line-through' : '',
+                    color: '#717171',
+                    padding: '3rem 12.3rem',
+                  }}
+                  disabled={eOfImage}
+                />
+              </div>
 
-        <div className={classes.img} height={400} width={250}>
-          <Image
-            src={imgRefPreview || bookImg || altBookPng}
-            height={360}
-            width={240}
-            alt="book"
-            style={styles.image}
-          />
+              <div className={classes.borderDiv}>
+                <label className={classes.lableInput}>
+                  <span>
+                    Add Your Book!
+                    <Upload
+                      bookLink={bookLink}
+                      setEOfFile={setEOfFile}
+                      iP="p"
+                    />
+                  </span>
+                </label>
+                <br />
+                <label className={classes.orLable}>OR</label>
+                <br />
+                <input
+                  placeholder="Book's Link"
+                  className={classes.input}
+                  value={bookLink}
+                  onChange={(e) => setBookLink(e.target.value)}
+                  style={{
+                    marginTop: '1%',
+                    width: 'fit-content',
+                    textDecorationLine: eOfFile ? 'line-through' : '',
+                    color: '#717171',
+                    padding: '3rem 12.3rem',
+                  }}
+                  disabled={eOfFile}
+                />
+              </div>
+
+              <input
+                placeholder="Author Name*"
+                className={classes.input}
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                style={{ marginTop: '0%' }}
+              />
+              {errors.authorName && (
+                <p style={styles.error}>{errors.authorName}</p>
+              )}
+              <input
+                type="date"
+                max={todayDATE()}
+                placeholder="Date Of Publish"
+                className={classes.input}
+                value={dateOfPublish}
+                onChange={(e) => setDateOfPublish(e.target.value)}
+              />
+              <textarea
+                rows={4}
+                cols={40}
+                placeholder="Description"
+                className={classes.textArea}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              {errors.dateOfPublish && (
+                <p style={styles.error}>{errors.dateOfPublish}</p>
+              )}
+              <br />
+              <button
+                type="button"
+                style={{ marginTop: '4%' }}
+                className={classes.addButton}
+                onClick={() => submitBookData()}
+                disabled={isAdding}
+              >
+                {isAdding ? 'Adding....' : 'Add Book'}
+              </button>
+            </form>
+          </div>
+
+          <div className={classes.img} height={400} width={250}>
+            <Image
+              src={imgRefPreview || bookImg || altBookPng}
+              height={360}
+              width={240}
+              alt="book"
+              style={styles.image}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -6,12 +6,27 @@
 	border-radius: 6px;
 	cursor: pointer;
 	background-color: var(--secondary-color);
+
+	&:hover {
+		background-color: #9c4109;
+		color: #ffffff;
+		cursor: pointer;
+	}
 }
+
 .variant__primary {
 	background-color: var(--primary-color);
 }
+
 .variant__secondary {
 	background-color: var(--secondary-color);
+
+	&:hover {
+		background-color: #686868;
+		color: #ffffff;
+		cursor: pointer;
+		;
+	}
 }
 
 @media only screen and (max-width: 768px) {

@@ -19,10 +19,14 @@ function HeroSection() {
           <Text>a listing website of the books</Text>
           <div className={classes.hero__buttons}>
             <ButtonWithLink link="/savedBooks">Saved Books</ButtonWithLink>
-            <ButtonWithLink link="/addBook" variant="primary">Add Books</ButtonWithLink>
+            <ButtonWithLink link="/addBook" variant="primary">
+              Add Books
+            </ButtonWithLink>
           </div>
           <div className={classes.hero__buttons}>
-            <ButtonWithLink link="/books" variant="primary">Explore Books</ButtonWithLink>
+            <ButtonWithLink link="/books" variant="primary">
+              Explore Books
+            </ButtonWithLink>
           </div>
         </div>
       </div>

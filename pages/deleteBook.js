@@ -19,7 +19,7 @@ function DeleteBook() {
     try {
       const response = await fetch(`/api/getBook?bookId=${bookId}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch book data');
+        throw new Error('Book Not Found!!');
       }
       const data = await response.json();
       setBookData(data);
@@ -33,7 +33,7 @@ function DeleteBook() {
   async function validAdminAuth() {
     if (adminId === 'admin_jt_dev' && adminPass === 'books-universe-jt') {
       setAuth(false);
-      toast.success('Welcome To Delete Admin..');
+      toast.success('Welcome To Delete-Book Section..');
     } else {
       setAuth(true);
       setAdminId('');
@@ -68,7 +68,7 @@ function DeleteBook() {
 
   const handleDelete = async () => {
     if (bookData === '') {
-      toast.error('you neet get Data First!!');
+      toast.error('You need to get data first to delete..');
       return;
     }
 
@@ -134,7 +134,7 @@ function DeleteBook() {
           <div className={classes.formWrapper}>
             <form>
               <input
-                type="number"
+                type="text"
                 placeholder="Book id"
                 className={classes.input}
                 value={bookId}
@@ -158,7 +158,11 @@ function DeleteBook() {
                 Delete
               </button>
             </form>
-            {error && <PointText variant="error">{error}</PointText>}
+            {error && (
+              <div style={{ marginTop: '4%', fontWeight: 'bold' }}>
+                <PointText variant="error">{error}</PointText>
+              </div>
+            )}
             {bookData && (
               <div>
                 <hr />
