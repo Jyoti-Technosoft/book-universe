@@ -13,7 +13,7 @@
 	border-radius: 6px;
 
 	&:hover {
-		background-color: #292a2c;
+		background-color: var(--hover-color-dark);
 		cursor: alias;
 		;
 	}

@@ -7,13 +7,14 @@
 }
 
 :root {
-	--primary-color: #e85d04;
-	--secondary-color: #313235;
-	--background-color: #1f2023 !important;
-	--text-color: #717171;
-	--text-color-light: #9f9f9f;
-	--white: #fff;
-	--black: #000;
+  --primary-color: #e85d04;
+  --secondary-color: #313235;
+  --background-color: #1f2023 !important;
+  --text-color: #717171;
+  --text-color-light: #9f9f9f;
+  --white: #fff;
+  --black: #000;
+  --hover-color-dark: #292a2c;
 }
 
 html {
