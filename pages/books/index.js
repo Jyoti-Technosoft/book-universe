@@ -7,7 +7,6 @@ import SearchBar from '../../components/booksPage/SearchBar';
 import SingleBookCard from '../../components/booksPage/SingleBookCard';
 import PointText from '../../components/text/PointText';
 import Text from '../../components/text/Text';
-import categoriesData from '../../assets/categories.json';
 import classes from './books.module.scss';
 
 const override = {
@@ -15,7 +14,27 @@ const override = {
   margin: '0 auto',
 };
 
-const getCategories = async () => categoriesData.data;
+const getCategories = async () => {
+  const response = await fetch('/api/books');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  const storedBooks = data.books;
+
+  const categories = storedBooks.reduce((acc, book) => {
+    const bookCategories = book.bookCategory.split(', ');
+    bookCategories.forEach((category) => {
+      const trimmedCategory = category.trim().toLowerCase();
+      if (!acc.includes(trimmedCategory)) {
+        acc.push(trimmedCategory);
+      }
+    });
+    return acc;
+  }, []);
+
+  return categories;
+};
 
 const getBooks = async (selectedCategory) => {
   const response = await fetch('/api/books');
@@ -24,6 +43,7 @@ const getBooks = async (selectedCategory) => {
   }
   const data = await response.json();
   const storedBooks = data.books;
+
   if (selectedCategory.queryKey[1] === undefined) {
     return storedBooks;
   }

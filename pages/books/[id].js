@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { BeatLoader } from 'react-spinners';
@@ -30,6 +30,7 @@ function SingleBooks() {
   const { id } = router.query;
   const { data, isLoading, isError } = useQuery(['id', id], getSingleBook);
   const [isSaved, setIsSaved] = React.useState(false);
+  const [showBookFile, setShowBookFile] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('savedBooks')) {
@@ -82,79 +83,126 @@ function SingleBooks() {
   }
 
   return (
-    <div className={classes.pageWrapper}>
-      <div className={classes.topContainer}>
-        <div className={classes.img} height={400} width={250}>
-          <Image
-            src={data.bookImg ? data.bookImg : altBookPng}
-            height="350px"
-            width="240px"
-            alt={altBookPng}
-          />
-        </div>
-        <div className={classes.info}>
-          <a
-            href={data.bookLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Click here to go to Book.."
-          >
-            <Title className={classes.linkTextDecoration} variant="primary">
-              {data.bookName}
-            </Title>
-          </a>
-          <PointText className={classes.infoText}>
-            Author:
-            {' '}
-            {data.authorName}
-          </PointText>
-          <PointText className={classes.infoText}>
-            Date Of Publish:
-            {' '}
-            {formatDate(data.dateOfPublish)}
-          </PointText>
-          <PointText className={classes.infoText}>
-            Description:
-            {' '}
-            {data.description}
-          </PointText>
-          <div className={classes.mainDiv}>
-            {bookCategory?.split(',').map((text) => (
-              <div className={classes.subDiv} key={text}>
-                {text}
-              </div>
-            ))}
-          </div>
-
-          {isSaved && (
-            <Text className={classes.greenText}>
-              You already saved the book.
-            </Text>
+    <>
+      <div
+        className={classes.pageWrapper}
+        style={{
+          padding: showBookFile ? '20px' : '',
+          paddingTop: showBookFile ? '0px' : '',
+          marginTop: showBookFile ? '-30px' : '',
+        }}
+      >
+        <div
+          className={classes.topContainer}
+          style={{ placeContent: showBookFile ? 'center' : '' }}
+        >
+          {showBookFile ? null : (
+            <div className={classes.img} height={400} width={250}>
+              <Image
+                src={data.bookImg ? data.bookImg : altBookPng}
+                height="350px"
+                width="240px"
+                alt={altBookPng}
+              />
+            </div>
           )}
-          <Button
-            variant="primary"
-            className={classes.saveButton}
-            onClickHandler={handleSaveButtonClick}
-          >
-            {isSaved ? (
+
+          <div className={classes.info}>
+            <span>
+              <div
+                role="button"
+                tabIndex={0}
+                target="_blank"
+                data-toggle="tooltip"
+                data-placement="top"
+                title={
+                  showBookFile
+                    ? 'Click here to go to Book Details..'
+                    : 'Click here to go to Book..'
+                }
+                style={{
+                  display: 'inline-block',
+                  width: 'fit-content',
+                }}
+                onClick={() => {
+                  setShowBookFile(!showBookFile);
+                }}
+                onKeyDown={null}
+              >
+                <Title className={classes.linkTextDecoration} variant="primary">
+                  {data.bookName}
+                </Title>
+              </div>
+            </span>
+            {showBookFile ? null : (
               <>
-                <FaHeartBroken />
-                {' '}
-                Remove
-              </>
-            ) : (
-              <>
-                <FaHeart className={classes.saveIcon} />
-                {' '}
-                save
+                <PointText className={classes.infoText}>
+                  Author:
+                  {' '}
+                  {data.authorName}
+                </PointText>
+                <PointText className={classes.infoText}>
+                  Date Of Publish:
+                  {' '}
+                  {formatDate(data.dateOfPublish)}
+                </PointText>
+                <PointText className={classes.infoText}>
+                  Description:
+                  {' '}
+                  {data.description}
+                </PointText>
+                <div className={classes.mainDiv}>
+                  {bookCategory?.split(',').map((text) => (
+                    <div className={classes.subDiv} key={text}>
+                      {text}
+                    </div>
+                  ))}
+                </div>
+                {isSaved && (
+                  <Text className={classes.greenText}>
+                    You already saved the book.
+                  </Text>
+                )}
+                <Button
+                  variant="primary"
+                  className={classes.saveButton}
+                  onClickHandler={handleSaveButtonClick}
+                >
+                  {isSaved ? (
+                    <>
+                      <FaHeartBroken />
+                      {' '}
+                      Remove
+                    </>
+                  ) : (
+                    <>
+                      <FaHeart className={classes.saveIcon} />
+                      {' '}
+                      save
+                    </>
+                  )}
+                </Button>
               </>
             )}
-          </Button>
+          </div>
         </div>
       </div>
-    </div>
+      {showBookFile ? (
+        <div className={classes.bookPdfViewr}>
+          <iframe
+            title="BookFileView"
+            className={classes.pdfCointainer}
+            src={data.bookLink}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+      ) : null}
+    </>
   );
 }
 

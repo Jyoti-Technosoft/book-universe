@@ -99,10 +99,22 @@
 }
 
 .linkTextDecoration {
+  -webkit-text-stroke: 0.7px #e85d04;
+
   &:hover {
+    -webkit-text-stroke: 0;
     color: #e85d04;
     cursor: pointer;
   }
+}
+
+.bookPdfViewr {
+  text-align: -webkit-center;
+}
+
+.pdfCointainer {
+  width: 60%;
+  height: 780px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -111,5 +123,10 @@
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
+  }
+
+  .pdfCointainer {
+    width: 101%;
+    height: 400px;
   }
 }
