@@ -8,7 +8,11 @@ class MyDocument extends Document {
       <Html lang="eng">
         <Head>
           {/* fonts */}
-          <link href="https://fonts.googleapis.com/css2?family=Mirza:wght@700&family=Poppins:wght@400&display=swap" rel="stylesheet" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Mirza:wght@700&family=Poppins:wght@400&display=swap"
+            rel="stylesheet"
+          />
+          <link rel="shortcut icon" href="/static/open-book.png" />
         </Head>
         <body>
           <Main />
