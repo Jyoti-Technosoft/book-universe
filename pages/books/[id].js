@@ -194,9 +194,6 @@ function SingleBooks() {
           <br />
           <br />
           <br />
-          <br />
-          <br />
-          <br />
         </div>
       ) : null}
     </>
