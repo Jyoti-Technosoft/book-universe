@@ -12,7 +12,7 @@ export default function Categories({
   setQuery,
 }) {
   if (categoryIsLoading) {
-    return <div>Loading...</div>;
+    return null;
   }
   if (categoryIsError) {
     return (
