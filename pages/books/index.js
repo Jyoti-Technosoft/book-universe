@@ -14,6 +14,8 @@ const override = {
   margin: '0 auto',
 };
 
+let AllBookData;
+
 const getCategories = async () => {
   const response = await fetch('/api/books');
   if (!response.ok) {
@@ -21,6 +23,8 @@ const getCategories = async () => {
   }
   const data = await response.json();
   const storedBooks = data.books;
+  AllBookData = storedBooks;
+  // console.log("here data\n", AllBookData);
 
   const categories = storedBooks.reduce((acc, book) => {
     const bookCategories = book.bookCategory.split(', ');
@@ -37,32 +41,19 @@ const getCategories = async () => {
 };
 
 const getBooks = async (selectedCategory) => {
-  const response = await fetch('/api/books');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const data = await response.json();
-  const storedBooks = data.books;
-
   if (selectedCategory.queryKey[1] === undefined) {
-    return storedBooks;
+    return AllBookData;
   }
-  return storedBooks.filter((book) => book.bookCategory
+  return AllBookData.filter((book) => book.bookCategory
     .toLowerCase()
     .includes(selectedCategory.queryKey[1].toLowerCase()));
 };
 
 const getQueriedBook = async (query) => {
-  const response = await fetch('/api/books');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const data = await response.json();
-  const storedBooks = data.books;
   if (query.queryKey[1] === undefined) {
-    return storedBooks;
+    return AllBookData;
   }
-  return storedBooks.filter((book) => book.bookName.toLowerCase().includes(query.queryKey[1].toLowerCase()));
+  return AllBookData.filter((book) => book.bookName.toLowerCase().includes(query.queryKey[1].toLowerCase()));
 };
 
 function Books() {
