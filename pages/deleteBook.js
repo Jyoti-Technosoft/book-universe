@@ -17,7 +17,7 @@ function DeleteBook() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/getBook?bookId=${bookId}`);
+      const response = await fetch(`/api/book/${bookId}`);
       if (!response.ok) {
         throw new Error('Book Not Found!!');
       }

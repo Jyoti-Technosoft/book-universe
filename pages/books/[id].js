@@ -14,7 +14,7 @@ import classes from './books.module.scss';
 import altBookPng from '../../assets/altBook.png';
 
 export const getSingleBook = async ({ queryKey }) => {
-  const response = await fetch(`/api/getBook?bookId=${queryKey[1]}`);
+  const response = await fetch(`/api/book/${queryKey[1]}`);
   if (!response.ok) {
     throw new Error('Book Not Found!!');
   }
