@@ -89,9 +89,10 @@
 
 }
 
-input[type="date"]:not(.has-value)::after {
-    color: #717171;
+
+input[type="date"]:not(.has-value)::before {
     content: attr(placeholder);
+    color: #717171;
 }
 
 .textArea {

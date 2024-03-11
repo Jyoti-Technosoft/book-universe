@@ -190,19 +190,20 @@ function AddBook() {
                 value={bookName}
                 onChange={(e) => setBookName(e.target.value)}
               />
-              {errors.bookName && <p style={styles.error}>{errors.bookName}</p>}
+              {errors.bookName && (
+                <span style={styles.error}>{errors.bookName}</span>
+              )}
               <input
                 placeholder="Book Category*"
                 className={classes.input}
                 value={bookCategory}
                 onChange={(e) => setBookCategory(e.target.value)}
-                style={{ marginBottom: '4%' }}
               />
               {errors.bookCategory && (
-                <p style={styles.error}>{errors.bookCategory}</p>
+                <span style={styles.error}>{errors.bookCategory}</span>
               )}
 
-              <div className={classes.borderDiv}>
+              <div className={classes.borderDiv} style={{ marginTop: '4%' }}>
                 <label className={classes.lableInput}>
                   <span>
                     Add Your Book Cover Page
@@ -271,27 +272,28 @@ function AddBook() {
                 style={{ marginTop: '0%' }}
               />
               {errors.authorName && (
-                <p style={styles.error}>{errors.authorName}</p>
+                <span style={styles.error}>{errors.authorName}</span>
               )}
               <input
                 type="date"
                 max={todayDATE()}
-                placeholder="Date Of Publish"
+                placeholder="Date Of Publish:-"
                 className={classes.input}
                 value={dateOfPublish}
                 onChange={(e) => setDateOfPublish(e.target.value)}
               />
+              {errors.dateOfPublish && (
+                <span style={styles.error}>{errors.dateOfPublish}</span>
+              )}
               <textarea
                 rows={4}
                 cols={40}
-                placeholder="Description"
+                placeholder="Description_Max Leangth-290 Characters."
                 className={classes.textArea}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                maxLength="290"
               />
-              {errors.dateOfPublish && (
-                <p style={styles.error}>{errors.dateOfPublish}</p>
-              )}
               <br />
               <button
                 type="button"
