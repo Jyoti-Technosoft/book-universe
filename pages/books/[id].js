@@ -14,15 +14,12 @@ import classes from './books.module.scss';
 import altBookPng from '../../assets/altBook.png';
 
 export const getSingleBook = async ({ queryKey }) => {
-  const response = await fetch('/api/books');
+  const response = await fetch(`/api/getBook?bookId=${queryKey[1]}`);
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error('Book Not Found!!');
   }
-  const data = await response.json();
-  const { books } = data;
-  return books
-    .filter((book) => book.bookId === parseInt(queryKey[1], 10))
-    .reduce((acc, obj) => obj);
+  const book = await response.json();
+  return book;
 };
 
 function SingleBooks() {
