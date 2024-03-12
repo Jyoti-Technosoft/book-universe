@@ -1,9 +1,9 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";	
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
@@ -18,20 +18,20 @@
 }
 
 html {
-	font-family: 'Poppins', sans-serif;
-	font-size: 10px;
-	color: var(--white) !important;
-	background: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  font-size: 10px;
+  color: var(--white) !important;
+  background: var(--background-color);
 }
 
 body {
-	background-color: var(--background-color);
-	color: white;
+  background-color: var(--background-color);
+  color: white;
 }
 
 a {
-	text-decoration: none;
-	color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* img {
@@ -40,5 +40,26 @@ a {
 } */
 
 button {
-	font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 6px solid rgba(0, 0, 0, 0.2);
+  background: #e85d04;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c94f04;
 }
