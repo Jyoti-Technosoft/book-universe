@@ -48,7 +48,7 @@ function SingleBooks() {
 
   if (isLoading || !data) {
     return (
-      <div className={classes.footer}>
+      <div className={classes.loadingIcon}>
         <BeatLoader color="#fff" size={30} />
       </div>
     );

@@ -9,6 +9,8 @@ import Layout from '../components/layout/Layout';
 import Header from '../components/header/header';
 import { getSingleBook } from './books/[id]';
 import '../styles/global.css';
+import Footer from '../components/layout/Footer';
+import classes from './_app.module.scss';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +36,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
+    <div className={classes.higherMainDiv}>
       <Header />
       <Head>
         <title>Book Universe</title>
@@ -52,12 +54,15 @@ function MyApp({ Component, pageProps }) {
             },
           }}
         />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <div className={classes.footerSetDiv}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Footer />
+        </div>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </>
+    </div>
   );
 }
 

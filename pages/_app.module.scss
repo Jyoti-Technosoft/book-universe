@@ -1,0 +1,10 @@
+.higherMainDiv {
+    height: 100vh;
+}
+
+.footerSetDiv {
+    height: calc(100vh - 53px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
