@@ -89,11 +89,11 @@
 
 }
 
-
-input[type="date"]:not(.has-value)::before {
-    content: attr(placeholder);
-    color: #717171;
-}
+//To see the place holder//
+// input[type="date"]:not(.has-value)::before {
+//     content: attr(placeholder);
+//     color: #717171;
+// }
 
 .textArea {
     // resize: none;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { v4 } from 'uuid';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, uploadBytes } from 'firebase/storage';
 import { BeatLoader } from 'react-spinners';
 
 import Upload from '../components/upload/Upload';
@@ -23,6 +23,7 @@ function AddBook() {
   const [dateOfPublish, setDateOfPublish] = useState('');
   const [errors, setErrors] = useState({});
   const router = useRouter();
+  const ref = useRef();
   const [isAdding, setIsAdding] = useState(false);
   const [imgRefPreview, setImgRefPreview] = useState('');
   const [eOfImage, setEOfImage] = useState('');
@@ -275,12 +276,18 @@ function AddBook() {
                 <span style={styles.error}>{errors.authorName}</span>
               )}
               <input
-                type="date"
+                ref={ref}
                 max={todayDATE()}
-                placeholder="Date Of Publish:-"
+                placeholder="Date Of Publish*"
                 className={classes.input}
                 value={dateOfPublish}
                 onChange={(e) => setDateOfPublish(e.target.value)}
+                onFocus={() => {
+                  ref.current.type = 'date';
+                }}
+                onBlur={() => {
+                  ref.current.type = 'text';
+                }}
               />
               {errors.dateOfPublish && (
                 <span style={styles.error}>{errors.dateOfPublish}</span>
@@ -288,7 +295,7 @@ function AddBook() {
               <textarea
                 rows={4}
                 cols={40}
-                placeholder="Description_Max Leangth-290 Characters."
+                placeholder="Description(Max Length:290)"
                 className={classes.textArea}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
